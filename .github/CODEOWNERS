@@ -1,0 +1,23 @@
+# Default: all changes require review from the maintainer
+* @paullawlor-ai
+
+# Legal and identity pages
+src/content/docs/manifesto.md @paullawlor-ai
+src/content/docs/disclaimer.md @paullawlor-ai
+src/content/docs/privacy.md @paullawlor-ai
+src/content/docs/licensing.md @paullawlor-ai
+
+# Site configuration and infrastructure
+astro.config.mjs @paullawlor-ai
+src/content.config.ts @paullawlor-ai
+src/components/** @paullawlor-ai
+package.json @paullawlor-ai
+package-lock.json @paullawlor-ai
+tsconfig.json @paullawlor-ai
+
+# Licenses and project governance
+LICENSE-CODE @paullawlor-ai
+LICENSE-CONTENT @paullawlor-ai
+CONTRIBUTING.md @paullawlor-ai
+README.md @paullawlor-ai
+.github/** @paullawlor-ai

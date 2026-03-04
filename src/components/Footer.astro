@@ -1,0 +1,86 @@
+---
+import EditLink from 'virtual:starlight/components/EditLink';
+import LastUpdated from 'virtual:starlight/components/LastUpdated';
+import Pagination from 'virtual:starlight/components/Pagination';
+---
+
+<footer class="sl-flex">
+	<div class="meta sl-flex">
+		<EditLink />
+		<LastUpdated />
+	</div>
+	<Pagination />
+	<div class="site-footer">
+		<p class="copyright">
+			&copy; {new Date().getFullYear()} Paul Lawlor.
+			Code licensed under <a href="/licensing/">MIT</a>.
+			Content licensed under <a href="/licensing/">CC&nbsp;BY-NC&nbsp;4.0</a>.
+		</p>
+		<nav class="footer-links" aria-label="Legal and contribution">
+			<a href="https://github.com/paullawlor-ai/aisecurityinpractice">Contribute</a>
+			<a href="/disclaimer/">Disclaimer</a>
+			<a href="/privacy/">Privacy</a>
+			<a href="/licensing/">Licensing</a>
+		</nav>
+	</div>
+</footer>
+
+<style>
+	@layer starlight.core {
+		footer {
+			flex-direction: column;
+			gap: 1.5rem;
+		}
+		.meta {
+			gap: 0.75rem 3rem;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			margin-top: 3rem;
+			font-size: var(--sl-text-sm);
+			color: var(--sl-color-gray-3);
+		}
+		.meta > :global(p:only-child) {
+			margin-inline-start: auto;
+		}
+	}
+
+	.site-footer {
+		border-top: 1px solid var(--sl-color-hairline-shade);
+		padding-top: 1.5rem;
+		margin-top: 1rem;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+		text-align: center;
+	}
+
+	.copyright {
+		margin: 0 0 0.5rem;
+	}
+
+	.copyright a {
+		color: var(--sl-color-gray-3);
+		text-decoration: underline;
+		text-underline-offset: 0.15em;
+	}
+
+	.copyright a:hover {
+		color: var(--sl-color-white);
+	}
+
+	.footer-links {
+		display: flex;
+		justify-content: center;
+		gap: 1.5rem;
+	}
+
+	.footer-links a {
+		color: var(--sl-color-gray-3);
+		text-decoration: none;
+	}
+
+	.footer-links a:hover {
+		color: var(--sl-color-white);
+		text-decoration: underline;
+		text-underline-offset: 0.15em;
+	}
+</style>

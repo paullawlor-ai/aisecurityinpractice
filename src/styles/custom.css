@@ -1,0 +1,106 @@
+:root {
+	--sl-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	--sl-font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', Menlo, monospace;
+	--sl-text-2xl: 1.75rem;
+}
+
+.site-title {
+	font-weight: 700;
+}
+
+/* ── Tighten the splash/hero on the homepage ── */
+[data-page-template='splash'] .hero {
+	padding-block: 2rem;
+	gap: 0.5rem;
+}
+
+[data-page-template='splash'] .hero > .sl-flex {
+	gap: 0.75rem;
+}
+
+[data-page-template='splash'] .hero .tagline {
+	font-size: var(--sl-text-base);
+	max-width: 48rem;
+}
+
+[data-page-template='splash'] .hero h1 {
+	font-size: var(--sl-text-2xl);
+}
+
+[data-page-template='splash'] .hero .action {
+	font-size: var(--sl-text-sm);
+}
+
+/* Reduce gap between hero and domain cards */
+[data-page-template='splash'] .sl-container {
+	padding-block-start: 0;
+}
+
+/* ── Sidebar collapse toggle (desktop only) ── */
+@media (min-width: 50rem) {
+	.sidebar-toggle {
+		position: fixed;
+		z-index: 20;
+		top: calc(var(--sl-nav-height) + 0.75rem);
+		left: calc(var(--sl-sidebar-width, 18.75rem) - 0.5rem);
+		width: 1.5rem;
+		height: 1.5rem;
+		border-radius: 50%;
+		border: 1px solid var(--sl-color-hairline-shade);
+		background: var(--sl-color-bg-sidebar);
+		color: var(--sl-color-text-accent);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.75rem;
+		line-height: 1;
+		transition: left 0.2s ease, background-color 0.15s ease;
+	}
+
+	.sidebar-toggle:hover {
+		background: var(--sl-color-text-accent);
+		color: var(--sl-color-bg);
+	}
+
+	[data-sidebar-collapsed] .sidebar-toggle {
+		left: 0.5rem;
+	}
+
+	[data-sidebar-collapsed] .sidebar {
+		display: none;
+	}
+
+	[data-sidebar-collapsed] .main-frame {
+		padding-inline-start: 0;
+	}
+}
+
+@media (max-width: 49.99rem) {
+	.sidebar-toggle {
+		display: none;
+	}
+}
+
+/* ── Wide-screen layout: content fills space, TOC fixed width ── */
+@media (min-width: 72rem) {
+	/* Main content area takes all remaining space */
+	:root[data-has-sidebar][data-has-toc] .main-pane {
+		flex: 1 1 auto;
+		min-width: 0;
+		width: auto;
+		--sl-content-margin-inline: 0;
+	}
+
+	/* Right TOC sidebar: fixed width, no excess whitespace */
+	:root[data-has-sidebar][data-has-toc] .right-sidebar-container {
+		flex: 0 0 18rem;
+		width: 18rem;
+	}
+
+	/* Article content fills its section, with readable max line length */
+	:root[data-has-sidebar][data-has-toc] .content-panel .sl-container {
+		margin-inline: 0;
+		max-width: min(72rem, 100%);
+	}
+}

@@ -1,0 +1,27 @@
+---
+title: AI Security in Practice
+description: Deep technical implementation guides for securing AI systems in production.
+template: splash
+hero:
+  tagline: Deep technical implementation guides for securing AI systems in production. The practitioner layer between vendor marketing and unreadable PDFs.
+  actions:
+    - text: Read the Manifesto
+      link: /manifesto/
+      icon: right-arrow
+      variant: minimal
+    - text: GitHub
+      link: https://github.com/paullawlor-ai/aisecurityinpractice
+      icon: external
+      variant: minimal
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <LinkCard title="Foundations" href="/foundations/how-llms-work/" description="Start here. LLM internals, OWASP Top 10, tool selection, and your first security lab." />
+  <LinkCard title="Attack and Red Team" href="/attack-and-red-team/pyrit-zero-to-red-team/" description="Prompt injection, jailbreaking, red teaming tools, adversarial ML, and CTFs." />
+  <LinkCard title="Defend and Harden" href="/defend-and-harden/guardrails-engineering/" description="Guardrails, secure RAG, output validation, MCP security, and agent hardening." />
+  <LinkCard title="Architecture and Platform" href="/architecture-and-platform/zero-trust-for-ai/" description="Cloud AI security, MLOps, API gateway patterns, and Zero Trust for AI." />
+  <LinkCard title="Governance, Risk and Compliance" href="/governance-risk-compliance/the-nist-ai-rmf-implementation-guide/" description="Frameworks, compliance, risk registers, incident response, and UK Government guidance." />
+  <LinkCard title="Emerging Threats and Research" href="/emerging-threats-and-research/ai-worms/" description="AI worms, sleeper agents, supply chain attacks, and multi-agent system security." />
+</CardGrid>
