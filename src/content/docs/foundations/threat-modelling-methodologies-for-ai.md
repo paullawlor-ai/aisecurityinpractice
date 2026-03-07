@@ -5,13 +5,11 @@ sidebar:
   order: 12
 ---
 
-# Threat Modelling Methodologies for AI: STRIDE, ATT&CK, ATLAS, MAESTRO, and When to Use Each
-
-**Series:** AI Security in Practice
-**Pillar:** 1: Foundations
-**Difficulty:** Beginner-Intermediate
-**Author:** Paul Lawlor
-**Date:** 5 March 2026
+**Series:** AI Security in Practice<br/>
+**Pillar:** 1: Foundations<br/>
+**Difficulty:** Beginner-Intermediate<br/>
+**Author:** Paul Lawlor<br/>
+**Date:** 5 March 2026<br/>
 **Reading time:** 17 minutes
 
 > A practical guide to choosing and combining threat modelling frameworks for AI systems, from simple chatbots to agentic AI with tools and multi-agent architectures.
