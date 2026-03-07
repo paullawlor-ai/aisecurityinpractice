@@ -8,11 +8,21 @@ dist/
 # Environment and secrets
 .env
 .env.*
+pat.md
 !.env.example
 *.pem
 *.key
 *.pfx
 secrets/
+
+# Essays
+essays/
+
+# Planning
+blog_article_index_v2.md
+SITE_RESTRUCTURE_PLAN.md
+proposed-newcomers-articles.md
+
 
 # Logs and caches
 *.log
@@ -35,4 +45,3 @@ Thumbs.db
 
 # Vercel
 .vercel/
-
