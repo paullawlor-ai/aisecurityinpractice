@@ -5,13 +5,11 @@ sidebar:
   order: 6
 ---
 
-# The MITRE ATLAS Playbook: Mapping AI Attacks to the ATT&CK Framework
-
-**Series:** AI Security in Practice
-**Pillar:** 2: Attack and Red Team
-**Difficulty:** Intermediate
-**Author:** Paul Lawlor
-**Date:** 5 March 2026
+**Series:** AI Security in Practice<br/>
+**Pillar:** 2: Attack and Red Team<br/>
+**Difficulty:** Intermediate<br/>
+**Author:** Paul Lawlor<br/>
+**Date:** 5 March 2026<br/>
 **Reading time:** 15 minutes
 
 > A practical playbook for using MITRE ATLAS to categorise AI red team findings and threat models in a format that maps to the ATT&CK framework your organisation already uses.

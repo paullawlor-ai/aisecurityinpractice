@@ -5,13 +5,11 @@ sidebar:
   order: 12
 ---
 
-# The Function Calling Minefield: Do's and Don'ts for LLM Tool Use
-
-**Series:** AI Security in Practice
-**Pillar:** 3: Defend and Harden
-**Difficulty:** Intermediate
-**Author:** Paul Lawlor
-**Date:** 6 March 2026
+**Series:** AI Security in Practice<br/>
+**Pillar:** 3: Defend and Harden<br/>
+**Difficulty:** Intermediate<br/>
+**Author:** Paul Lawlor<br/>
+**Date:** 6 March 2026<br/>
 **Reading time:** 10 minutes
 
 > A security framework for LLM function calling and tool use: validate parameters, enforce least privilege, add confirmation gates, and avoid the mistakes that turn helpful agents into privilege escalation paths.
