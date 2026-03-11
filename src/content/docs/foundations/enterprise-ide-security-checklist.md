@@ -41,11 +41,11 @@ The CISO approves Cursor with a privacy mode requirement, defers the others pend
 
 The AI coding tool market has matured rapidly. In early 2025, most enterprise conversations centred on GitHub Copilot. By early 2026, procurement teams face a genuinely competitive market with meaningful security differentiation between vendors.
 
-**Cursor** achieved SOC 2 Type II certification in January 2026, offers a privacy mode with parallel infrastructure that guarantees code data is never stored by model providers, and provides enterprise features including team-enforced privacy mode and SSO.[^1] **Windsurf** holds FedRAMP High accreditation through Palantir's FedStart programme, SOC 2 Type II certification, HIPAA compliance, and offers Cloud, Hybrid, and Self-hosted deployment options with data residency in the US, EU (Frankfurt), and FedRAMP GovCloud environments.[^2] **Devin** has SOC 2 Type 2 and ISO/IEC 27001:2022 certifications, VPC deployment on AWS and Azure, and a two-tier RBAC system with fine-grained permissions.[^3][^4] **Amazon Q Developer** inherits the AWS shared responsibility model with IAM integration, CloudTrail audit logging, VPC endpoints via AWS PrivateLink, and customer-managed encryption keys.[^5] **GitHub Copilot** Enterprise provides organisation-level policy controls, public code matching detection, and integration with GitHub's existing enterprise identity and compliance infrastructure.[^6]
+**Cursor** achieved SOC 2 Type II certification in January 2026, offers a privacy mode with parallel infrastructure that guarantees code data is never stored by model providers, and provides enterprise features including team-enforced privacy mode and SSO.[^1] **Windsurf** holds FedRAMP High accreditation through Palantir's FedStart programme, SOC 2 Type II certification, HIPAA compliance, and offers Cloud, Hybrid, and Self-hosted deployment options with data residency in the US, EU (Frankfurt), and FedRAMP GovCloud environments.[^2] **Devin** has SOC 2 Type II and ISO/IEC 27001:2022 certifications, VPC deployment on AWS and Azure, and a two-tier RBAC system with fine-grained permissions.[^3][^4] **Amazon Q Developer** inherits the AWS shared responsibility model with IAM integration, CloudTrail audit logging, VPC endpoints via AWS PrivateLink, and customer-managed encryption keys.[^5] **GitHub Copilot** Enterprise provides organisation-level policy controls, public code matching detection, and integration with GitHub's existing enterprise identity and compliance infrastructure.[^6]
 
 These are not equivalent offerings. They differ on compliance certifications, deployment models, data handling, identity integration, and audit capabilities. Selecting the wrong tool for a regulated environment, or the right tool with the wrong configuration, creates compliance gaps that may not surface until an audit or incident.
 
-This essay provides the enterprise security checklist that procurement teams, CISOs, and security architects need. It builds on the autonomy framework established in *The Autonomy Ladder* (Essay C in this series) by adding the compliance and procurement dimensions that determine whether a tool can be deployed at all, regardless of its autonomy level.
+This essay provides the enterprise security checklist that procurement teams, CISOs, and security architects need. It builds on the autonomy framework established in [The Autonomy Ladder](/foundations/autonomy-ladder/) (Essay C in this series) by adding the compliance and procurement dimensions that determine whether a tool can be deployed at all, regardless of its autonomy level.
 
 ---
 
@@ -105,7 +105,7 @@ Before evaluating features, map your compliance requirements to vendor capabilit
 
 | Capability | GitHub Copilot Enterprise | Cursor Business/Enterprise | Windsurf Enterprise | Devin Enterprise | Amazon Q Developer Pro |
 |---|---|---|---|---|---|
-| **Compliance** | SOC 2[^6] | SOC 2 Type II[^1] | FedRAMP High, SOC 2 Type II, HIPAA[^2] | SOC 2 Type 2, ISO 27001[^3] | AWS compliance programmes[^5] |
+| **Compliance** | SOC 2[^6] | SOC 2 Type II[^1] | FedRAMP High, SOC 2 Type II, HIPAA[^2] | SOC 2 Type II, ISO 27001[^3] | AWS compliance programmes[^5] |
 | **SSO** | GitHub SAML SSO[^6] | SAML via admin portal[^1] | SAML (Okta, Azure AD, Google, generic)[^8] | Okta, Azure AD, IdP groups[^4] | AWS IAM Identity Center[^5] |
 | **SCIM provisioning** | Via GitHub Enterprise[^6] | Not documented | Okta, Azure AD, Google, SCIM API[^8] | IdP group integration[^4] | IAM Identity Center sync[^5] |
 | **Data retention** | Configurable at org level[^6] | Zero retention (privacy mode)[^1] | Zero retention (teams/enterprise default)[^2] | Duration of customer relationship[^3] | Configurable, opt-out available[^5] |
@@ -145,7 +145,7 @@ Review the approved list quarterly. Tools add features rapidly. MCP server suppo
 
 An annual review is the minimum cadence. Trigger ad-hoc reviews when a vendor announces significant changes: new deployment tiers, new model providers, new data handling policies, or new agentic capabilities. Both Cursor and Windsurf commit to at-least-annual penetration testing by reputable third parties.[^1][^2]
 
-The review should include: re-verification of compliance certifications, review of any new subprocessors, testing of SSO and de-provisioning flows, verification that data handling configurations remain in effect, assessment of new features against the organisation's security policy, and a check against the autonomy ladder classification (as described in *The Autonomy Ladder*, Essay C in this series). If a tool has moved from L2 to L3 since the last review, the security controls must be reassessed accordingly.
+The review should include: re-verification of compliance certifications, review of any new subprocessors, testing of SSO and de-provisioning flows, verification that data handling configurations remain in effect, assessment of new features against the organisation's security policy, and a check against the autonomy ladder classification (as described in [The Autonomy Ladder](/foundations/autonomy-ladder/), Essay C in this series). If a tool has moved from L2 to L3 since the last review, the security controls must be reassessed accordingly.
 
 ---
 
@@ -207,12 +207,12 @@ The vendors have done the compliance work. The enterprise buyer's job is to veri
 
 1. Cursor Security Documentation -- SOC 2 Type II, privacy mode, enterprise features, subprocessors. Available at: https://www.cursor.com/security
 2. Windsurf Security Documentation -- FedRAMP High, SOC 2, deployment tiers, zero data retention. Available at: https://codeium.com/security
-3. Windsurf Guide for Enterprise Admins -- SSO, SCIM, admin portal, feature toggles. Available at: https://university.windsurf.build/windsurf_guide_for_admins
-4. Devin Enterprise Security -- SOC 2 Type 2, ISO 27001, VPC deployment. Available at: https://docs.devin.ai/enterprise/security/enterprise-security
+3. Windsurf Guide for Admins -- SSO, SCIM, admin portal, feature toggles. Available at: https://docs.windsurf.com/windsurf/guide-for-admins
+4. Devin Enterprise Security -- SOC 2 Type II, ISO 27001, VPC deployment. Available at: https://docs.devin.ai/enterprise/security/enterprise-security
 5. Devin Custom Roles and RBAC -- fine-grained permissions, IdP integration. Available at: https://docs.devin.ai/enterprise/security-access/custom-roles
 6. Amazon Q Developer Security Documentation -- IAM, CloudTrail, PrivateLink. Available at: https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/security.html
 7. GitHub Copilot Managing Policies -- organisation and enterprise policy controls. Available at: https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization/setting-policies-for-copilot-in-your-organization
-8. Other essays in this series: *The Autonomy Ladder* (Essay C), *The MCP Trap* (Essay B), *The UK AI Playbook* (Essay A)
+8. Other essays in this series: [The Autonomy Ladder](/foundations/autonomy-ladder/) (Essay C), [The MCP Trap](/defend-and-harden/mcp-trap/) (Essay B), [The UK AI Playbook](/governance-risk-compliance/uk-ai-playbook/) (Essay A)
 
 ---
 
@@ -220,7 +220,7 @@ The vendors have done the compliance work. The enterprise buyer's job is to veri
 
 [^1]: Cursor, 'Security,' Cursor IDE Security Documentation. SOC 2 Type II certified. Privacy mode with parallel infrastructure ensures code data is never stored by model providers. Subprocessors include AWS, Cloudflare, Azure, GCP, Fireworks, Baseten, Together, OpenAI, Anthropic, and Google. Available at: https://www.cursor.com/security
 
-[^2]: Codeium, 'Security,' Windsurf IDE Security Documentation, last updated 11 March 2025. SOC 2 Type II, FedRAMP High (via Palantir FedStart on AWS GovCloud), HIPAA compliant. Deployment tiers: Cloud, Hybrid, Self-hosted, FedRAMP. Data residency: US, EU (Frankfurt), GovCloud. Zero data retention by default for teams and enterprise. Available at: https://codeium.com/security
+[^2]: Windsurf, 'Security,' Windsurf IDE Security Documentation, last updated 11 March 2025. SOC 2 Type II, FedRAMP High (via Palantir FedStart on AWS GovCloud), HIPAA compliant. Deployment tiers: Cloud, Hybrid, Self-hosted, FedRAMP. Data residency: US, EU (Frankfurt), GovCloud. Zero data retention by default for teams and enterprise. Available at: https://windsurf.com/security
 
 [^3]: Cognition Labs, 'Enterprise Security,' Devin Documentation. SOC 2 Type II since September 2024. VPC deployment on AWS and Azure. Does not train on customer data by default. Trust Centre at trust.cognition.ai lists additional certifications including ISO/IEC 27001:2022. Available at: https://docs.devin.ai/enterprise/security/enterprise-security
 
@@ -232,7 +232,7 @@ The vendors have done the compliance work. The enterprise buyer's job is to veri
 
 [^7]: UK Government, 'Artificial Intelligence Playbook for the UK Government,' published 10 February 2025. Principle 6: use the right tool for the job. Principle 5: lifecycle management. Available at: https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html
 
-[^8]: Codeium, 'Windsurf Guide for Enterprise Admins,' Windsurf University. SSO with Okta, Azure AD, Google, generic SAML. SCIM provisioning for automated user lifecycle. Admin portal with feature toggles for MCP servers, auto-run terminal commands, app deploys, conversation sharing, and knowledge base. RBAC with role-based group assignments. Available at: https://university.windsurf.build/windsurf_guide_for_admins
+[^8]: Windsurf, 'Windsurf Guide for Admins,' Windsurf University. SSO with Okta, Azure AD, Google, generic SAML. SCIM provisioning for automated user lifecycle. Admin portal with feature toggles for MCP servers, auto-run terminal commands, app deploys, conversation sharing, and knowledge base. RBAC with role-based group assignments. Available at: https://docs.windsurf.com/windsurf/guide-for-admins
 
 [^9]: Cursor, 'Enterprise Compliance and Monitoring,' Cursor Enterprise Documentation. Real-time analytics, AI usage tracking, AI lines of code per commit. Available at: https://cursor.com/docs/enterprise/compliance-and-monitoring
 

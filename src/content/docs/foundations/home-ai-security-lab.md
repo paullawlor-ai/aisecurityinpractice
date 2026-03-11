@@ -543,7 +543,7 @@ graph LR
 
 [^2]: AI Village -- DEF CON AI Security Community. Available at: https://aivillage.org/
 
-[^3]: Ollama Security Considerations. Available at: https://github.com/ollama/ollama/blob/main/docs/security.md
+[^3]: Ollama Documentation. Available at: https://docs.ollama.com/
 
 [^4]: vLLM -- High-Throughput LLM Serving Engine. Hardware requirements reference. Available at: https://docs.vllm.ai/
 

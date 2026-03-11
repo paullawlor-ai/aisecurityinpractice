@@ -45,11 +45,11 @@ The problem was not that any team acted recklessly. Each followed the same appro
 
 ### Why this matters now
 
-AI coding tools now span a wide autonomy spectrum. GitHub Copilot offers inline completions, chat, agent mode in VS Code, and a coding agent that works autonomously on issues and pull requests.[^1] Cursor provides code completions, chat, and Composer mode with MCP server integration, backed by SOC 2 Type II certification.[^2] Windsurf offers autocomplete, chat, and its Cascade agentic mode, with FedRAMP High accreditation and multiple deployment options.[^3] Amazon Kiro is a spec-driven agentic IDE that works autonomously on complex tasks using a multi-model architecture.[^4] Devin, by Cognition Labs, is a fully autonomous AI software engineer with SOC 2 Type 2 and ISO/IEC 27001:2022 certifications.[^5]
+AI coding tools now span a wide autonomy spectrum. GitHub Copilot offers inline completions, chat, agent mode in VS Code, and a coding agent that works autonomously on issues and pull requests.[^1] Cursor provides code completions, chat, and Composer mode with MCP server integration, backed by SOC 2 Type II certification.[^2] Windsurf offers autocomplete, chat, and its Cascade agentic mode, with FedRAMP High accreditation and multiple deployment options.[^3] Amazon Kiro is a spec-driven agentic IDE that works autonomously on complex tasks using a multi-model architecture.[^4] Devin, by Cognition Labs, is a fully autonomous AI software engineer with SOC 2 Type II and ISO/IEC 27001:2022 certifications.[^5]
 
 The UK AI Playbook for Government requires 'meaningful human control at the right stages' (Principle 4) and using 'the right tool for the job' (Principle 6).[^6] What constitutes 'meaningful control' for an autocomplete tool is fundamentally different from what it means for an autonomous agent that works unsupervised for hours.
 
-This essay introduces the **autonomy ladder**: a five-level classification that maps proportional security controls to each level of AI coding tool autonomy. It builds on the governance foundation established in *The UK AI Playbook* (Essay A in this series) and the supply chain security foundation established in *The MCP Trap* (Essay B). The autonomy level of an AI coding tool, not its brand or marketing category, should determine the security controls applied to it.
+This essay introduces the **autonomy ladder**: a five-level classification that maps proportional security controls to each level of AI coding tool autonomy. It builds on the governance foundation established in [The UK AI Playbook](/governance-risk-compliance/uk-ai-playbook/) (Essay A in this series) and the supply chain security foundation established in [The MCP Trap](/defend-and-harden/mcp-trap/) (Essay B). The autonomy level of an AI coding tool, not its brand or marketing category, should determine the security controls applied to it.
 
 ---
 
@@ -92,7 +92,7 @@ flowchart BT
 
 **Level 2 -- Chat.** Conversational code generation, explanations, and refactoring through a chat interface. The developer receives a response and decides what to apply. Examples include Copilot Chat, Cursor Chat, and Amazon Q Chat.[^1][^2] Larger context windows mean more code is sent per interaction, and responses can span multiple files. The developer must still manually apply each change. The security concern expands to larger data exposure per interaction and the need for context window management.
 
-**Level 3 -- Agentic (supervised).** Multi-file edits with tool use and command execution. The AI proposes actions; the developer approves each one before execution. Examples include Cursor Composer and Agent mode, Windsurf Cascade, and Copilot agent mode in VS Code.[^2][^3][^8] The AI can run commands, install dependencies, and modify multiple files, but requires developer approval at each step. Security concerns include tool execution, dependency introduction, and a multi-file blast radius. Approval gates and MCP server controls (as covered in Essay B) are essential.
+**Level 3 -- Agentic (supervised).** Multi-file edits with tool use and command execution. The AI proposes actions; the developer approves each one before execution. Examples include Cursor Composer and Agent mode, Windsurf Cascade, and Copilot agent mode in VS Code.[^2][^3][^8] The AI can run commands, install dependencies, and modify multiple files, but requires developer approval at each step. Security concerns include tool execution, dependency introduction, and a multi-file blast radius. Approval gates and MCP server controls (as covered in [Essay B](/defend-and-harden/mcp-trap/)) are essential.
 
 **Level 4 -- Agentic (autonomous).** Spec-driven autonomous development. The AI works independently for extended periods, executing multi-step plans without per-action human approval. Amazon Kiro exemplifies this level with its spec-driven development approach, agent hooks, and steering files.[^4] The developer sets requirements via natural language specs; the AI executes autonomously. Human review is periodic, not per-action. Security concerns include extended unsupervised execution, resource consumption, and drift from the original specification. Time limits, cost controls, and kill switches are essential.
 
@@ -150,7 +150,7 @@ Define a control matrix that maps specific security requirements to each autonom
 
 At **L1 and L2**: data classification review, vendor security assessment, privacy mode configuration where available, and standard code review of AI suggestions.
 
-At **L3**: all of the above, plus approval gates for tool execution, dependency introduction review, and MCP server controls as described in Essay B of this series.
+At **L3**: all of the above, plus approval gates for tool execution, dependency introduction review, and MCP server controls as described in [Essay B](/defend-and-harden/mcp-trap/) of this series.
 
 At **L4**: all of the above, plus time-boxed sessions, cost limits, automatic termination triggers, and periodic human review checkpoints. Amazon Kiro's credit-based metering with overage controls provides a model for cost governance at this level.[^4]
 
@@ -249,12 +249,12 @@ The autonomy level determines the risk. Match the controls to the capability.
 1. UK AI Playbook for Government (2025) -- Principle 4 (human control), Principle 6 (right tool for the job). Available at: https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html
 2. GitHub Copilot Concepts Documentation -- completions, chat, agent mode, coding agent. Available at: https://docs.github.com/en/copilot/concepts
 3. Cursor Security Documentation -- SOC 2 Type II, privacy mode, enterprise features. Available at: https://www.cursor.com/security
-4. Windsurf Security Documentation -- FedRAMP High, SOC 2, deployment options. Available at: https://codeium.com/security
+4. Windsurf Security Documentation -- FedRAMP High, SOC 2, deployment options. Available at: https://windsurf.com/security
 5. Amazon Kiro FAQ -- spec-driven development, agent hooks, enterprise features. Available at: https://kiro.dev/faq/
-6. Devin Enterprise Security -- SOC 2 Type 2, ISO 27001, RBAC, VPC deployment. Available at: https://docs.devin.ai/enterprise/security/enterprise-security
+6. Devin Enterprise Security -- SOC 2 Type II, ISO 27001, RBAC, VPC deployment. Available at: https://docs.devin.ai/enterprise/security/enterprise-security
 7. Anthropic Responsible Scaling Policy -- ASL tiered security model. Available at: https://www.anthropic.com/news/anthropics-responsible-scaling-policy
 8. NCSC Guidelines for Secure AI System Development -- human oversight, secure deployment. Available at: https://www.ncsc.gov.uk/files/Guidelines-for-secure-AI-system-development.pdf
-9. Other essays in this series: *The UK AI Playbook* (Essay A), *The MCP Trap* (Essay B)
+9. Other essays in this series: [The UK AI Playbook](/governance-risk-compliance/uk-ai-playbook/) (Essay A), [The MCP Trap](/defend-and-harden/mcp-trap/) (Essay B)
 
 ---
 
@@ -264,11 +264,11 @@ The autonomy level determines the risk. Match the controls to the capability.
 
 [^2]: Cursor, 'Security,' Cursor IDE Security Documentation (last updated January 2026). SOC 2 Type II certified. Available at: https://www.cursor.com/security
 
-[^3]: Codeium, 'Security,' Windsurf IDE Security Documentation. SOC 2 Type II, FedRAMP High accredited, HIPAA compliant. Available at: https://codeium.com/security
+[^3]: Windsurf, 'Security,' Windsurf IDE Security Documentation. SOC 2 Type II, FedRAMP High accredited, HIPAA compliant. Available at: https://windsurf.com/security
 
 [^4]: Amazon Web Services, 'Kiro FAQ,' Amazon Kiro Documentation. Spec-driven development with agent hooks and steering files. Credit-based metering with overage controls. Available at: https://kiro.dev/faq/
 
-[^5]: Cognition Labs, 'Enterprise Security,' Devin Documentation. SOC 2 Type 2, ISO/IEC 27001:2022, CCPA compliant. VPC deployment on AWS and Azure. Available at: https://docs.devin.ai/enterprise/security/enterprise-security
+[^5]: Cognition Labs, 'Enterprise Security,' Devin Documentation. SOC 2 Type II, ISO/IEC 27001:2022, CCPA compliant. VPC deployment on AWS and Azure. Available at: https://docs.devin.ai/enterprise/security/enterprise-security
 
 [^6]: UK Government, 'Artificial Intelligence Playbook for the UK Government,' published 10 February 2025. Principle 4: meaningful human control at the right stages. Principle 5: lifecycle management. Principle 6: use the right tool for the job. Principle 3: use AI securely, Secure by Design. Principle 8: work with commercial colleagues from the start. Principle 10: assurance and evaluation. Available at: https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html
 

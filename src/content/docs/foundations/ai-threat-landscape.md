@@ -230,20 +230,20 @@ This article provides a map of the territory. The articles listed below provide 
 
 | OWASP LLM Risk | Related Articles on This Site |
 |---|---|
-| LLM01: Prompt Injection | 2.02 Prompt Injection Field Manual; 2.08 The Prompt Injection Trap; 3.15 Rebuff and LLM Guard |
-| LLM02: Sensitive Information Disclosure | 5.09 The GDPR Data Protection Trap; 5.11 The Cursor Privacy Paradox |
-| LLM03: Supply Chain | 3.14 ModelScan and Fickling; 6.05 AI Supply Chain Attacks; 6.07 The Supply Chain Security Trap |
+| LLM01: Prompt Injection | [2.02 Prompt Injection Field Manual](/attack-and-red-team/prompt-injection-field-manual/); [2.08 The Prompt Injection Trap](/attack-and-red-team/prompt-injection-trap/); 3.15 Rebuff and LLM Guard |
+| LLM02: Sensitive Information Disclosure | 5.09 The GDPR Data Protection Trap; [5.11 The Cursor Privacy Paradox](/governance-risk-compliance/the-cursor-privacy-paradox/) |
+| LLM03: Supply Chain | 3.14 ModelScan and Fickling; [6.05 AI Supply Chain Attacks](/emerging-threats-and-research/ai-supply-chain-attacks/); 6.07 The Supply Chain Security Trap |
 | LLM04: Data and Model Poisoning | 2.04 Adversarial Machine Learning for Practitioners; 6.02 Sleeper Agent Attacks |
 | LLM05: Improper Output Handling | 3.05 LLM Output Validation Patterns; 3.04 SAST for AI-Generated Code |
-| LLM06: Excessive Agency | 3.10 The Autonomous Agent Dilemma; 3.12 The Function Calling Minefield; 1.04 The Autonomy Ladder |
-| LLM07: System Prompt Leakage | 2.02 Prompt Injection Field Manual; 3.01 Guardrails Engineering |
-| LLM08: Vector and Embedding Weaknesses | 3.02 Building a Secure RAG Pipeline; 3.07 Vector Database Security; 3.11 The RAG Trap |
-| LLM09: Misinformation | 3.01 Guardrails Engineering; 3.06 Implementing Content Safety at Scale |
+| LLM06: Excessive Agency | [3.10 The Autonomous Agent Dilemma](/defend-and-harden/autonomous-agent-dilemma/); [3.12 The Function Calling Minefield](/defend-and-harden/the-function-calling-minefield/); [1.04 The Autonomy Ladder](/foundations/autonomy-ladder/) |
+| LLM07: System Prompt Leakage | [2.02 Prompt Injection Field Manual](/attack-and-red-team/prompt-injection-field-manual/); [3.01 Guardrails Engineering](/defend-and-harden/guardrails-engineering/) |
+| LLM08: Vector and Embedding Weaknesses | [3.02 Building a Secure RAG Pipeline](/defend-and-harden/building-secure-rag-pipeline/); 3.07 Vector Database Security; [3.11 The RAG Trap](/defend-and-harden/rag-trap/) |
+| LLM09: Misinformation | [3.01 Guardrails Engineering](/defend-and-harden/guardrails-engineering/); 3.06 Implementing Content Safety at Scale |
 | LLM10: Unbounded Consumption | 4.07 API Gateway Patterns for LLM Endpoints |
 
 ### Three actions to take this week
 
-1. **Print the OWASP LLM Top 10 summary table and pin it next to your architecture diagram.** Use it as a checklist during design reviews for any feature that involves an LLM. The full document is available at https://genai.owasp.org/.
+1. **Print the OWASP LLM Top 10 summary table and pin it next to your architecture diagram.** Use it as a checklist during design reviews for any feature that involves an LLM. The full document is available at https://genai.owasp.org/llm-top-10/.
 
 2. **Run the prioritisation exercise from Section 7 against your current deployment.** Identify the two or three OWASP risks that represent the highest combined likelihood and impact for your specific architecture. Allocate your next sprint's security work to those risks.
 
