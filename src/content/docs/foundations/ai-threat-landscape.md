@@ -234,7 +234,7 @@ This article provides a map of the territory. The articles listed below provide 
 | LLM02: Sensitive Information Disclosure | 5.09 The GDPR Data Protection Trap; [5.11 The Cursor Privacy Paradox](/governance-risk-compliance/the-cursor-privacy-paradox/) |
 | LLM03: Supply Chain | 3.14 ModelScan and Fickling; [6.05 AI Supply Chain Attacks](/emerging-threats-and-research/ai-supply-chain-attacks/); 6.07 The Supply Chain Security Trap |
 | LLM04: Data and Model Poisoning | 2.04 Adversarial Machine Learning for Practitioners; 6.02 Sleeper Agent Attacks |
-| LLM05: Improper Output Handling | 3.05 LLM Output Validation Patterns; 3.04 SAST for AI-Generated Code |
+| LLM05: Improper Output Handling | [3.05 LLM Output Validation Patterns](/defend-and-harden/llm-output-validation-patterns/); 3.04 SAST for AI-Generated Code |
 | LLM06: Excessive Agency | [3.10 The Autonomous Agent Dilemma](/defend-and-harden/autonomous-agent-dilemma/); [3.12 The Function Calling Minefield](/defend-and-harden/the-function-calling-minefield/); [1.04 The Autonomy Ladder](/foundations/autonomy-ladder/) |
 | LLM07: System Prompt Leakage | [2.02 Prompt Injection Field Manual](/attack-and-red-team/prompt-injection-field-manual/); [3.01 Guardrails Engineering](/defend-and-harden/guardrails-engineering/) |
 | LLM08: Vector and Embedding Weaknesses | [3.02 Building a Secure RAG Pipeline](/defend-and-harden/building-secure-rag-pipeline/); 3.07 Vector Database Security; [3.11 The RAG Trap](/defend-and-harden/rag-trap/) |
