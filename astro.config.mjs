@@ -13,6 +13,7 @@ export default defineConfig({
 		}),
 		starlight({
 			title: 'AI Security in Practice',
+			description: 'Deep technical implementation guides for securing AI systems in production — covering threat modelling, prompt injection, guardrails, RAG security, compliance frameworks, and more.',
 			tagline: 'Deep technical implementation guides for securing AI systems in production.',
 			logo: {
 				src: './src/assets/AISiP-logo.png',
