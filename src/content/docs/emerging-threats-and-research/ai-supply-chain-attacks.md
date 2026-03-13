@@ -2,7 +2,7 @@
 title: "AI Supply Chain Attacks: From Hugging Face to Production"
 description: "Analysis of AI supply chain attack vectors from model hubs and datasets to production, with practical defensive measures."
 sidebar:
-  order: 2
+  order: 5
 ---
 
 **Series:** AI Security in Practice<br/>
