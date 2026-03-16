@@ -309,7 +309,7 @@ The frameworks referenced in this article (NIST AI RMF, ISO 42001, OWASP, MITRE 
 
 [^7]: MITRE, "ATLAS: Adversarial Threat Landscape for AI Systems". Available at: https://atlas.mitre.org/
 
-[^8]: AI Security in Practice, "GitHub Copilot Security: The 5 Mistakes Every Team Makes", Article 5.10 on this site.
+[^8]: AI Security in Practice, ["GitHub Copilot Security: The 5 Mistakes Every Team Makes"](/governance-risk-compliance/github-copilot-security/), Article 5.10 on this site.
 
 [^9]: OWASP, "Top 10 for LLM Applications 2025: LLM03 Supply Chain". Available at: https://genai.owasp.org/llmrisk/llm032025-supply-chain/
 
