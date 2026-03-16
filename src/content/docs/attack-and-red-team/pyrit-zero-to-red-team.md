@@ -736,7 +736,7 @@ This tutorial walked through the complete lifecycle of a PyRIT red teaming engag
 
 **Custom targets** extend PyRIT to test your specific applications. If your LLM is wrapped behind a REST API with authentication, custom pre-processing, or output formatting, you can create a custom target class that handles those specifics while keeping the rest of the PyRIT pipeline unchanged. The PyRIT documentation provides a complete guide to creating custom targets. [^5]
 
-**The MITRE ATLAS framework** maps AI attack techniques to a structured taxonomy analogous to ATT&CK for traditional systems. Using ATLAS to categorise your PyRIT findings gives them a common language that security teams, risk managers, and auditors understand. Article 2.06 on this site covers ATLAS in depth. [^21]
+**The MITRE ATLAS framework** maps AI attack techniques to a structured taxonomy analogous to ATT&CK for traditional systems. Using ATLAS to categorise your PyRIT findings gives them a common language that security teams, risk managers, and auditors understand. Article [2.06](/attack-and-red-team/the-mitre-atlas-playbook/) on this site covers ATLAS in depth. [^21]
 
 **Microsoft's AI red teaming training series** provides the strategic context for the tactical skills this tutorial covers. It covers threat modelling for AI systems, planning red team engagements, and interpreting results for stakeholders. [^12]
 
@@ -748,25 +748,25 @@ PyRIT is a defensive tool. Its purpose is to find vulnerabilities in your own sy
 
 [^1]: Microsoft, "PyRIT: Python Risk Identification Tool for Generative AI", https://github.com/Azure/PyRIT
 
-[^2]: PyRIT Documentation, "Installation Guide", https://azure.github.io/PyRIT/setup/1a_install_uv.html
+[^2]: PyRIT Documentation, "Installation Guide", https://github.com/Azure/PyRIT/blob/main/doc/setup/1a_install_uv.md
 
 [^3]: Ollama, "Ollama: Get up and running with large language models", https://ollama.com/
 
-[^4]: PyRIT Documentation, "Memory", https://azure.github.io/PyRIT/code/memory/0_memory.html
+[^4]: PyRIT Documentation, "Memory", https://github.com/Azure/PyRIT/tree/main/doc/code/memory
 
-[^5]: PyRIT Documentation, "Prompt Targets", https://azure.github.io/PyRIT/code/targets/0_prompt_targets.html
+[^5]: PyRIT Documentation, "Prompt Targets", https://github.com/Azure/PyRIT/tree/main/doc/code/targets
 
-[^6]: PyRIT Documentation, "Converters", https://azure.github.io/PyRIT/code/converters/0_converters.html
+[^6]: PyRIT Documentation, "Converters", https://github.com/Azure/PyRIT/tree/main/doc/code/converters
 
-[^7]: PyRIT Documentation, "Scoring", https://azure.github.io/PyRIT/code/scoring/0_scoring.html
+[^7]: PyRIT Documentation, "Scoring", https://github.com/Azure/PyRIT/tree/main/doc/code/scoring
 
-[^8]: PyRIT Documentation, "Multi-Turn Orchestrator", https://azure.github.io/PyRIT/code/orchestrators/2_multi_turn_orchestrators.html
+[^8]: PyRIT Documentation, "Attack (Single-Turn and Multi-Turn)", https://github.com/Azure/PyRIT/blob/main/doc/code/executor/attack/0_attack.md
 
 [^9]: Russinovich, M. et al., "Great, Now Write an Article About That: The Crescendo Multi-Turn LLM Jailbreak Attack" (2024), https://arxiv.org/abs/2404.01833
 
-[^10]: PyRIT Blog, "Multi-Turn Orchestrators Standardisation" (December 2024), https://azure.github.io/PyRIT/blog/2024_12_3.html
+[^10]: PyRIT Documentation, "Attack (Multi-Turn Attack Strategy)", https://github.com/Azure/PyRIT/blob/main/doc/code/executor/attack/0_attack.md
 
-[^11]: PyRIT Documentation, "OpenAI Chat Target", https://azure.github.io/PyRIT/code/targets/1_openai_chat_target.html
+[^11]: PyRIT Documentation, "OpenAI Chat Target", https://github.com/Azure/PyRIT/blob/main/doc/code/targets/1_openai_chat_target.ipynb
 
 [^12]: Microsoft, "AI Red Teaming Training Series: Securing Generative AI Systems", https://learn.microsoft.com/en-us/security/ai-red-team/training
 
