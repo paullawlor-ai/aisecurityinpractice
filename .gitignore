@@ -18,12 +18,6 @@ secrets/
 # Essays
 essays/
 
-# Planning
-blog_article_index_v2.md
-SITE_RESTRUCTURE_PLAN.md
-proposed-newcomers-articles.md
-
-
 # Logs and caches
 *.log
 npm-debug.log*

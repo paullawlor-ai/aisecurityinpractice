@@ -3,6 +3,7 @@ title: "The MCP Trap: Do's and Don'ts for Model Context Protocol Security"
 description: "The first security-focused guide to MCP deployments, covering common mistakes and defensive strategies."
 sidebar:
   order: 9
+date: 2026-02-20
 ---
 
 **Series:** AI Security Do's and Don'ts

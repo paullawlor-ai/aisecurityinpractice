@@ -25,6 +25,7 @@ export const collections = {
 				version: z.string().optional(),
 				status: z.enum(['draft', 'review', 'stable', 'archived']).optional(),
 				lastReviewed: z.coerce.date().optional(),
+				date: z.coerce.date().optional(),
 			}),
 		}),
 	}),

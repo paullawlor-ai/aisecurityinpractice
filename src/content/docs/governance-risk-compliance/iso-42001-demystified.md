@@ -3,6 +3,7 @@ title: "ISO 42001 Demystified: Building an AI Management System"
 description: "A practical implementation guide to ISO/IEC 42001:2023, the world's first certifiable AI management system standard."
 sidebar:
   order: 2
+date: 2026-03-02
 ---
 
 **Series:** AI Security in Practice<br/>

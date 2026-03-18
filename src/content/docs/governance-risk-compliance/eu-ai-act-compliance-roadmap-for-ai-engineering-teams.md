@@ -3,6 +3,7 @@ title: "EU AI Act Compliance Roadmap for AI Engineering Teams"
 description: "A practical roadmap mapping the EU AI Act to engineering tasks with a phased implementation plan and compliance checklist."
 sidebar:
   order: 3
+date: 2026-03-02
 ---
 
 **Series:** AI Security in Practice<br/>

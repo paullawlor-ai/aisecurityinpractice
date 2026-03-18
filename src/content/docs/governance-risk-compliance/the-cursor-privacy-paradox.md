@@ -3,6 +3,7 @@ title: "The Cursor Privacy Paradox: When Zero Data Retention Isn't Zero Risk"
 description: "Verify AI tool privacy claims through traffic analysis and DPIAs. Zero retention at the model layer does not mean zero risk."
 sidebar:
   order: 5
+date: 2026-03-02
 ---
 
 **Series:** AI Security in Practice<br/>

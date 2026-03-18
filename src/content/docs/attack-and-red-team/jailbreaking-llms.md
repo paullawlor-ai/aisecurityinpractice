@@ -3,6 +3,7 @@ title: "Jailbreaking LLMs: From Many-Shot to Crescendo Attacks"
 description: "A technical deep dive into the five major classes of LLM jailbreak attack, from Anthropic's many-shot technique and Microsoft's Crescendo to gradient-based adversarial suffixes, with detection strategies, worked examples, and practical defensive recommendations."
 sidebar:
   order: 3
+date: 2026-03-01
 ---
 
 **Series:** AI Security in Practice<br/>

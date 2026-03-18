@@ -3,6 +3,7 @@ title: "Building a Home AI Security Lab: Hardware, Software, and First Experimen
 description: "End-to-end guide for building a local AI security lab with Ollama, PyRIT, Garak, and your first prompt injection experiments."
 sidebar:
   order: 3
+date: 2026-02-20
 ---
 
 **Series:** AI Security in Practice<br/>

@@ -3,6 +3,7 @@ title: "The NIST AI RMF Implementation Guide: Govern, Map, Measure, Manage for R
 description: "A step-by-step implementation guide to the NIST AI Risk Management Framework with tasks, deliverables, and templates."
 sidebar:
   order: 1
+date: 2026-03-02
 ---
 
 **Series:** AI Security in Practice<br/>

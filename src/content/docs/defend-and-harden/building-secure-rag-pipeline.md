@@ -3,6 +3,7 @@ title: "Building a Secure RAG Pipeline from Scratch"
 description: "An end-to-end tutorial for building a RAG pipeline with security controls at every stage: input validation, retrieval rails, and output filtering."
 sidebar:
   order: 8
+date: 2026-03-02
 ---
 
 **Series:** AI Security in Practice<br/>

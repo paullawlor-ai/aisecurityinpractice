@@ -19,6 +19,11 @@ hero:
 ---
 
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import RecentArticles from '../../components/RecentArticles.astro';
+
+<RecentArticles />
+
+<h2 class="section-heading">Explore by Pillar</h2>
 
 <CardGrid>
   <LinkCard title="Foundations" href="/foundations/how-llms-work/" description="Start here. LLM internals, OWASP Top 10, tool selection, and your first security lab." />

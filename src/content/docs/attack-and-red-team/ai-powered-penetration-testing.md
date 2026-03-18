@@ -3,6 +3,7 @@ title: "AI-Powered Penetration Testing: Using LLMs for Recon, Exploitation, and 
 description: "A technical deep dive into how offensive security teams are integrating large language models into every phase of penetration testing, from reconnaissance and vulnerability identification to exploit development and report writing, with worked examples, tool recommendations, and an honest assessment of the limitations."
 sidebar:
   order: 7
+date: 2026-03-13
 ---
 
 **Series:** AI Security in Practice<br/>

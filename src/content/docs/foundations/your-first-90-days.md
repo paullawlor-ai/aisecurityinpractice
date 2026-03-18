@@ -3,6 +3,7 @@ title: "Your First 90 Days as an AI Security Engineer"
 description: "A week-by-week playbook for the person who just landed the AI security role or was told 'you own AI security now.'"
 sidebar:
   order: 7
+date: 2026-02-21
 ---
 
 **Series:** AI Security in Practice<br/>

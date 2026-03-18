@@ -3,6 +3,7 @@ title: "GitHub Copilot Security: The 5 Mistakes Every Team Makes"
 description: "The security controls that matter most for GitHub Copilot enterprise deployments."
 sidebar:
   order: 10
+date: 2026-02-20
 ---
 
 **Series:** AI Security Do's and Don'ts<br/>

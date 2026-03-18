@@ -3,6 +3,7 @@ title: "AI Worms: Self-Replicating Prompts and the Morris Worm of the AI Era"
 description: "Technical analysis of AI worms that propagate through GenAI ecosystems via adversarial self-replicating prompts."
 sidebar:
   order: 1
+date: 2026-03-02
 ---
 
 **Series:** AI Security in Practice<br/>
