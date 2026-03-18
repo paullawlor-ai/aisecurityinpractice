@@ -3,6 +3,7 @@ title: "How LLMs Work: A Security Engineer's Guide to Tokenisation, Attention, a
 description: "Understanding how large language models process text is the prerequisite for understanding why they are vulnerable."
 sidebar:
   order: 1
+date: 2026-02-21
 ---
 
 **Series:** AI Security in Practice<br/>

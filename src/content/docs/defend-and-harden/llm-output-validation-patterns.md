@@ -3,6 +3,7 @@ title: "LLM Output Validation Patterns: Structured Outputs, Schema Enforcement, 
 description: "A practitioner's guide to validating LLM output with constrained decoding, schema enforcement, content scanning, and context-aware encoding to prevent injection, data leakage, and downstream exploitation."
 sidebar:
   order: 5
+date: 2026-03-11
 ---
 
 **Series:** AI Security in Practice<br/>

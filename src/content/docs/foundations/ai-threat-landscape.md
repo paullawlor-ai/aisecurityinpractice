@@ -3,6 +3,7 @@ title: "The AI Threat Landscape: OWASP LLM Top 10 Explained for Practitioners"
 description: "A practitioner-oriented walkthrough of the OWASP Top 10 for LLM Applications, mapping each risk to defensive actions."
 sidebar:
   order: 2
+date: 2026-02-21
 ---
 
 **Series:** AI Security in Practice<br/>

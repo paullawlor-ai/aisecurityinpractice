@@ -3,6 +3,7 @@ title: "Adversarial Machine Learning for Practitioners: Data Poisoning, Model Ev
 description: "A hands-on guide to the three core adversarial attack categories against machine learning systems, with practical demonstrations using IBM's Adversarial Robustness Toolbox, MITRE ATLAS mappings, and layered defensive strategies."
 sidebar:
   order: 4
+date: 2026-03-13
 ---
 
 **Series:** AI Security in Practice<br/>

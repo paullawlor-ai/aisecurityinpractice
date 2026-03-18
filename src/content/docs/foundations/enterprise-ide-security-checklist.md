@@ -3,6 +3,7 @@ title: "The Enterprise IDE Security Checklist: Cursor, Windsurf, Devin, and Beyo
 description: "A compliance-driven procurement framework for evaluating AI coding tools across five enterprise security dimensions."
 sidebar:
   order: 5
+date: 2026-02-21
 ---
 
 **Series:** AI Security in Practice<br/>

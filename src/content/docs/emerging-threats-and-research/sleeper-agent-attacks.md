@@ -3,6 +3,7 @@ title: "Sleeper Agent Attacks: Backdoors in Fine-Tuned Models"
 description: "Analysis of how adversaries embed hidden behaviours in fine-tuned models that persist through safety training, with detection approaches and defensive strategies."
 sidebar:
   order: 2
+date: 2026-03-11
 ---
 
 **Series:** AI Security in Practice<br/>

@@ -3,6 +3,7 @@ title: "Building an AI Security Programme from Zero"
 description: "The construction manual for the person whose CISO said 'you own AI security now, build something,' covering executive sponsorship, AI asset inventory, first policies, initial controls, engineering relationships, and measuring progress."
 sidebar:
   order: 10
+date: 2026-03-01
 ---
 
 **Series:** AI Security in Practice<br/>

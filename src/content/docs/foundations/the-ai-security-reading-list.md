@@ -3,6 +3,7 @@ title: "The AI Security Reading List: Papers, Communities, and Sources That Matt
 description: "A curated, opinionated guide to the research papers, frameworks, communities, conferences, newsletters, and tools that AI security practitioners actually use, with one-sentence annotations explaining why each resource matters."
 sidebar:
   order: 11
+date: 2026-03-01
 ---
 
 **Series:** AI Security in Practice<br/>

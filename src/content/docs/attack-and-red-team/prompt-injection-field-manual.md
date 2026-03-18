@@ -3,6 +3,7 @@ title: "Prompt Injection Field Manual: 20 Techniques That Still Work in 2026"
 description: "A structured taxonomy of 20 prompt injection techniques demonstrated against production systems, with attack chains and mitigations."
 sidebar:
   order: 2
+date: 2026-02-21
 ---
 
 **Series:** AI Security in Practice<br/>

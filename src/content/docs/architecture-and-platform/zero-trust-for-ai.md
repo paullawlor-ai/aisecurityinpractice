@@ -3,6 +3,7 @@ title: "Zero Trust for AI: Do's and Don'ts for Securing AI Coding Tools in Gover
 description: "Applying NCSC Zero Trust Architecture principles to AI coding tool deployment in government networks."
 sidebar:
   order: 8
+date: 2026-02-20
 ---
 
 **Series:** AI Security Do's and Don'ts<br/>

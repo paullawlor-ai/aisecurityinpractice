@@ -3,6 +3,7 @@ title: "The AI Security Skills Map: What You Actually Need to Know"
 description: "A structured skills taxonomy for AI security practitioners, divided into three honest tiers: what you must know now, what you should learn within six months, and what you can safely deprioritise."
 sidebar:
   order: 9
+date: 2026-02-21
 ---
 
 **Series:** AI Security in Practice<br/>

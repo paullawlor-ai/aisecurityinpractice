@@ -3,6 +3,7 @@ title: "The RAG Trap: When Your AI Coding Assistant Learns from Poisoned Documen
 description: "How RAG systems create persistent attack vectors through knowledge base poisoning, and six defensive strategies."
 sidebar:
   order: 11
+date: 2026-02-20
 ---
 
 **Series:** AI Security Do's and Don'ts

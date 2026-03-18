@@ -3,6 +3,7 @@ title: "Guardrails Engineering: Bedrock Guardrails vs NeMo Guardrails vs Lakera 
 description: "A comparative deep dive into three guardrail approaches for production LLM applications: AWS Bedrock, NVIDIA NeMo, and Lakera Guard."
 sidebar:
   order: 7
+date: 2026-03-02
 ---
 
 **Series:** AI Security in Practice<br/>

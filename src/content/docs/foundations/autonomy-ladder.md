@@ -3,6 +3,7 @@ title: "The Autonomy Ladder: Do's and Don'ts for Choosing Between Copilot, Curso
 description: "An autonomy-based taxonomy of AI coding tools with proportional security controls from L1 autocomplete to L5 fully autonomous."
 sidebar:
   order: 4
+date: 2026-02-20
 ---
 
 **Series:** AI Security Do's and Don'ts<br/>

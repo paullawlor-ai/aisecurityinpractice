@@ -3,6 +3,7 @@ title: "The Prompt Injection Trap: Do's and Don'ts for Production LLM Systems"
 description: "The comprehensive practical guide to prompt injection defence for teams deploying LLM-powered systems."
 sidebar:
   order: 8
+date: 2026-02-20
 ---
 
 **Series:** AI Security Do's and Don'ts<br/>

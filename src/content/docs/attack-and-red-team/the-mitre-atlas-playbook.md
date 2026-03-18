@@ -3,6 +3,7 @@ title: "The MITRE ATLAS Playbook: Mapping AI Attacks to the ATT&CK Framework"
 description: "A practical playbook for using MITRE ATLAS to categorise AI red team findings and threat models in a format that maps to the ATT&CK framework your organisation already uses."
 sidebar:
   order: 6
+date: 2026-03-05
 ---
 
 **Series:** AI Security in Practice<br/>

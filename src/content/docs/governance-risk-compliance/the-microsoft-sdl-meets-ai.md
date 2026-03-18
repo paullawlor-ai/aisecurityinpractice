@@ -3,6 +3,7 @@ title: "The Microsoft SDL Meets AI: Do's and Don'ts for Securing AI-Generated Co
 description: "Extend the Microsoft Security Development Lifecycle for AI-generated code with governance, threat modelling, and review practices."
 sidebar:
   order: 4
+date: 2026-03-02
 ---
 
 **Series:** AI Security in Practice<br/>

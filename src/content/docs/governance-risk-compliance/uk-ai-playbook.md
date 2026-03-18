@@ -3,6 +3,7 @@ title: "The UK AI Playbook: Do's and Don'ts for Government AI Coding Tool Adopti
 description: "Mapping UK AI Playbook principles to AI coding tool deployment with practical governance guidance."
 sidebar:
   order: 8
+date: 2026-02-20
 ---
 
 **Series:** AI Security Do's and Don'ts

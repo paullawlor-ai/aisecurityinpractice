@@ -1,7 +1,20 @@
 ---
 import MobileMenuToggle from 'virtual:starlight/components/MobileMenuToggle';
+import { getCollection } from 'astro:content';
 
 const { hasSidebar } = Astro.locals.starlightRoute;
+
+const docs = await getCollection('docs');
+const now = new Date();
+const sevenDaysAgo = new Date(now);
+sevenDaysAgo.setDate(now.getDate() - 7);
+
+const newHrefs = docs
+	.filter(doc => {
+		const date = doc.data.date;
+		return date instanceof Date && date >= sevenDaysAgo;
+	})
+	.map(doc => `/${doc.id}/`);
 ---
 
 <div class="page sl-flex">
@@ -29,6 +42,27 @@ const { hasSidebar } = Astro.locals.starlightRoute;
 	}
 	<div class="main-frame"><slot /></div>
 </div>
+
+<script define:vars={{ newHrefs }}>
+	// Inject "New" badges on sidebar links for articles published within the last 7 days
+	function injectNewBadges() {
+		newHrefs.forEach(href => {
+			document.querySelectorAll(`.sidebar-content a[href="${href}"]`).forEach(link => {
+				if (!link.querySelector('.new-badge')) {
+					const badge = document.createElement('span');
+					badge.className = 'new-badge';
+					badge.textContent = 'New';
+					link.appendChild(badge);
+				}
+			});
+		});
+	}
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', injectNewBadges);
+	} else {
+		injectNewBadges();
+	}
+</script>
 
 <script>
 	const btn = document.querySelector('.sidebar-toggle');

@@ -3,6 +3,7 @@ title: "PyRIT from Zero to Red Team: A Complete Setup and Attack Guide"
 description: "A hands-on tutorial for building a complete AI red teaming capability with Microsoft's PyRIT framework."
 sidebar:
   order: 1
+date: 2026-02-21
 ---
 
 **Series:** AI Security in Practice<br/>

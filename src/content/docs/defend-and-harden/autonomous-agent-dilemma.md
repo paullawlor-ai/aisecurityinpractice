@@ -3,6 +3,7 @@ title: "The Autonomous Agent Dilemma: Do's and Don'ts for Devin, Kiro, and Self-
 description: "A security control framework for Level 4 and Level 5 autonomous AI coding agents."
 sidebar:
   order: 10
+date: 2026-02-20
 ---
 
 **Series:** AI Security Do's and Don'ts<br/>

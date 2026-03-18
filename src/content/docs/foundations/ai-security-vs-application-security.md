@@ -3,6 +3,7 @@ title: "AI Security vs Application Security: What Changes and What Doesn't"
 description: "A two-column comparison of what transfers directly from traditional AppSec to AI security and what is genuinely new, with a worked example assessing a traditional API endpoint versus an LLM endpoint using the same threat-modelling framework."
 sidebar:
   order: 8
+date: 2026-02-21
 ---
 
 **Series:** AI Security in Practice<br/>
