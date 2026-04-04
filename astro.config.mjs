@@ -1,9 +1,14 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mermaid from 'astro-mermaid';
+import vercel from '@astrojs/vercel/serverless';
 
 export default defineConfig({
 	site: 'https://aisecurityinpractice.com',
+	output: 'server',
+	adapter: vercel({
+		webAnalytics: { enabled: true }
+	}),
 	integrations: [
 		mermaid({
 			autoTheme: true,
