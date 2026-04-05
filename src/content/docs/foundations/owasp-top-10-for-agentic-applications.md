@@ -3,6 +3,7 @@ title: "OWASP Top 10 for Agentic Applications (2026): Explained for Practitioner
 description: "A practitioner walkthrough of the OWASP Agentic Top 10: autonomy, tools, memory, and inter-agent trust mapped to defensive actions and site resources."
 sidebar:
   order: 13
+date: 2026-03-19
 ---
 
 **Series:** AI Security in Practice<br/>
