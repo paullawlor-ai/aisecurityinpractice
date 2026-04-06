@@ -16,6 +16,13 @@ date: 2026-02-21
 
 > A hands-on tutorial for building a complete AI red teaming capability with Microsoft's PyRIT framework, from first install to CI/CD integration.
 
+### Bottom line
+
+- PyRIT automates adversarial testing through five composable components: targets, converters, scorers, attack strategies, and memory. Understanding the architecture before writing attack code prevents the most common mistakes.
+- Red team **your own applications and safety layers**, not public APIs. Use a local model via Ollama for learning. Firing adversarial prompts at third-party endpoints can get your account banned.
+- Start with single-turn `PromptSendingAttack` to establish a baseline, then graduate to multi-turn strategies (Crescendo, TAP) that reveal vulnerabilities single-turn tests miss entirely.
+- Integrate PyRIT into CI/CD with pytest to catch safety regressions on every deployment. Automated red teaming complements but does not replace periodic manual engagements.
+
 ---
 
 ## Table of Contents
@@ -28,6 +35,8 @@ date: 2026-02-21
 6. [CI/CD Integration: Automated Red Teaming in Your Pipeline](#6-cicd-integration-automated-red-teaming-in-your-pipeline)
 7. [Troubleshooting: Common Errors and How to Fix Them](#7-troubleshooting-common-errors-and-how-to-fix-them)
 8. [Summary and Next Steps](#8-summary-and-next-steps)
+
+*Security leaders: Sections 1 and 3 for architecture and risk context. Builders: Sections 2 and 4-5 for hands-on setup and attack walkthroughs. DevOps/Platform: Section 6 for CI/CD integration. Section 7 saves everyone time when things break.*
 
 ---
 
