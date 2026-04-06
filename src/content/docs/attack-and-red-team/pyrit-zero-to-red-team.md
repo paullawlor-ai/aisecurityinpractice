@@ -259,7 +259,7 @@ The LLM-based scorers use a separate model from the target, which avoids the obv
 - `TAPAttack`: Implements the Tree of Attacks with Pruning (TAP) technique, which systematically explores multiple adversarial prompt paths in parallel.
 - `TreeOfAttacksWithPruningAttack`: Alias for `TAPAttack`. Explores multiple attack paths simultaneously, pruning unsuccessful branches.
 
-All multi-turn attacks share a common interface: they accept an `AttackAdversarialConfig` (the adversarial LLM), an `AttackScoringConfig` (the scorer), and optional `AttackConverterConfig` (prompt transformations). [^10]
+All multi-turn attacks share a common interface: they accept an `AttackAdversarialConfig` (the adversarial LLM), an `AttackScoringConfig` (the scorer), and optional `AttackConverterConfig` (prompt transformations). [^8]
 
 ### Memory
 
@@ -325,7 +325,7 @@ async def single_turn_attack():
 asyncio.run(single_turn_attack())
 ```
 
-This code initialises PyRIT with in-memory storage, creates a target (your LLM endpoint), configures a true/false scorer to judge whether the response achieves the objective, and sends a single adversarial prompt. The `ConsoleAttackResultPrinter` displays the conversation and the scorer's verdict. [^11]
+This code initialises PyRIT with in-memory storage, creates a target (your LLM endpoint), configures a true/false scorer to judge whether the response achieves the objective, and sends a single adversarial prompt. The `ConsoleAttackResultPrinter` displays the conversation and the scorer's verdict. [^5]
 
 ### Attack 2: Adding converters for obfuscation
 
@@ -453,7 +453,7 @@ Turn 3/5 - Score: True
 Objective achieved in 3 turns.
 ```
 
-This output tells you both that the safety training was bypassed and how many turns it took, which is valuable data for measuring your model's resilience to social engineering-style attacks. [^12]
+This output tells you both that the safety training was bypassed and how many turns it took, which is valuable data for measuring your model's resilience to social engineering-style attacks. [^10]
 
 ---
 
@@ -461,7 +461,7 @@ This output tells you both that the safety training was bypassed and how many tu
 
 ### The Crescendo attack
 
-The **Crescendo** technique is a multi-turn jailbreak that starts with benign questions and gradually escalates toward the adversarial objective. [^9] Unlike direct attacks, Crescendo references the model's own previous responses to build a conversational context that normalises increasingly sensitive topics. Research by Microsoft showed Crescendo achieves 29-61% higher attack success rates on GPT-4 compared to direct jailbreaking techniques. [^13]
+The **Crescendo** technique is a multi-turn jailbreak that starts with benign questions and gradually escalates toward the adversarial objective. [^9] Unlike direct attacks, Crescendo references the model's own previous responses to build a conversational context that normalises increasingly sensitive topics. Research by Microsoft showed Crescendo achieves 29-61% higher attack success rates on GPT-4 compared to direct jailbreaking techniques.
 
 ```python
 from pyrit.executor.attack import (
@@ -490,11 +490,11 @@ await ConsoleAttackResultPrinter().print_result_async(
 )
 ```
 
-Crescendo is particularly effective because it exploits the model's tendency to be helpful within established conversational context. The attacker LLM might begin by asking about general security awareness training, then customer service best practices, then specific scenarios that "training materials need to cover", eventually leading the target to produce detailed social engineering playbooks. Crescendo also supports backtracking: if the target refuses, the attack backtracks the adversarial LLM's memory and tries a different approach. [^13]
+Crescendo is particularly effective because it exploits the model's tendency to be helpful within established conversational context. The attacker LLM might begin by asking about general security awareness training, then customer service best practices, then specific scenarios that "training materials need to cover", eventually leading the target to produce detailed social engineering playbooks. Crescendo also supports backtracking: if the target refuses, the attack backtracks the adversarial LLM's memory and tries a different approach. [^9]
 
 ### The TAP attack
 
-**TAP** (Tree of Attacks with Pruning) takes a different approach. [^14] Instead of gradually escalating a conversation, TAP systematically explores multiple adversarial prompt paths in parallel using a tree structure. It employs breadth-first search with pruning to efficiently find effective jailbreaks while managing computational resources.
+**TAP** (Tree of Attacks with Pruning) takes a different approach. [^11] Instead of gradually escalating a conversation, TAP systematically explores multiple adversarial prompt paths in parallel using a tree structure. It employs breadth-first search with pruning to efficiently find effective jailbreaks while managing computational resources.
 
 ```python
 from pyrit.executor.attack import (
@@ -523,7 +523,7 @@ await ConsoleAttackResultPrinter().print_result_async(
 )
 ```
 
-`TAPAttack` (also available as `TreeOfAttacksWithPruningAttack`) is the most compute-intensive strategy but provides the broadest coverage. [^15] It branches into parallel conversation threads, scores each, and prunes unsuccessful paths to focus resources on the most promising approaches. The `tree_width` parameter controls parallelism and `tree_depth` controls how many iterations to run.
+`TAPAttack` (also available as `TreeOfAttacksWithPruningAttack`) is the most compute-intensive strategy but provides the broadest coverage. [^11] It branches into parallel conversation threads, scores each, and prunes unsuccessful paths to focus resources on the most promising approaches. The `tree_width` parameter controls parallelism and `tree_depth` controls how many iterations to run.
 
 ### Custom converters for targeted testing
 
@@ -581,7 +581,7 @@ for result in results:
     )
 ```
 
-Parallelisation is particularly valuable during CI/CD integration, where you want to test many objectives within a time budget. [^10]
+Parallelisation is particularly valuable during CI/CD integration, where you want to test many objectives within a time budget. [^8]
 
 ---
 
@@ -589,7 +589,7 @@ Parallelisation is particularly valuable during CI/CD integration, where you wan
 
 ### Why automate red teaming
 
-AI systems change with every model update, prompt revision, and guardrail configuration change. Manual red teaming after each change is impractical. Integrating PyRIT into your CI/CD pipeline ensures that every deployment is tested against a baseline of adversarial scenarios before reaching production. [^16]
+AI systems change with every model update, prompt revision, and guardrail configuration change. Manual red teaming after each change is impractical. Integrating PyRIT into your CI/CD pipeline ensures that every deployment is tested against a baseline of adversarial scenarios before reaching production. [^12]
 
 The pattern is analogous to running SAST or DAST tools in a build pipeline: you define a set of security test cases, run them automatically, and fail the build if the results exceed an acceptable threshold.
 
@@ -725,7 +725,7 @@ jobs:
           path: pyrit_results/
 ```
 
-Trigger the workflow on changes to prompt templates, guardrail configurations, or model settings. This ensures that security regressions are caught before deployment. [^17]
+Trigger the workflow on changes to prompt templates, guardrail configurations, or model settings. This ensures that security regressions are caught before deployment. [^13]
 
 ### Setting thresholds and gates
 
@@ -735,7 +735,7 @@ Not every attack success means a deployment should be blocked. Define thresholds
 - **Soft warnings:** Attacks that succeed with complex multi-turn strategies or obscure converters may generate warnings rather than failures. These indicate areas for improvement without blocking releases.
 - **Regression tracking:** Store results over time to detect whether safety is improving or degrading across model versions.
 
-The key principle is that automated red teaming complements, but does not replace, periodic manual red teaming engagements. Automated tests catch regressions against known attack patterns. Human red teamers discover novel attack vectors that automated tools have not been programmed to try. [^12]
+The key principle is that automated red teaming complements, but does not replace, periodic manual red teaming engagements. Automated tests catch regressions against known attack patterns. Human red teamers discover novel attack vectors that automated tools have not been programmed to try. [^10]
 
 ---
 
@@ -752,7 +752,7 @@ pip install pyrit
 
 ### Rate limiting and API errors
 
-When running parallel attacks or large test suites, you will hit API rate limits. PyRIT handles retries internally, but you may need to adjust concurrency. Reduce parallelism by limiting the number of concurrent objectives, or add delays between requests. If you are using Azure OpenAI, check your deployment's tokens-per-minute (TPM) quota and increase it if needed. [^18]
+When running parallel attacks or large test suites, you will hit API rate limits. PyRIT handles retries internally, but you may need to adjust concurrency. Reduce parallelism by limiting the number of concurrent objectives, or add delays between requests. If you are using Azure OpenAI, check your deployment's tokens-per-minute (TPM) quota and increase it if needed. [^14]
 
 For local Ollama targets, rate limiting is uncommon, but resource exhaustion is not. Running a 7B parameter model on a machine with insufficient RAM causes slowdowns or crashes. Monitor your system resources during testing.
 
@@ -788,7 +788,7 @@ If this returns a list of models, Ollama is running correctly and the issue is i
 
 ### Orchestrator hangs or runs indefinitely
 
-Multi-turn orchestrators can enter loops if the adversarial LLM keeps generating similar prompts that the target keeps refusing. Always set `max_turns` to a reasonable value (5-10 for initial testing). If the orchestrator consistently exhausts all turns without success, the objective may be too ambitious for the chosen strategy. Try a different orchestrator (Crescendo is often more effective than basic red teaming for well-defended targets) or break the objective into smaller, intermediate goals. [^10]
+Multi-turn orchestrators can enter loops if the adversarial LLM keeps generating similar prompts that the target keeps refusing. Always set `max_turns` to a reasonable value (5-10 for initial testing). If the orchestrator consistently exhausts all turns without success, the objective may be too ambitious for the chosen strategy. Try a different orchestrator (Crescendo is often more effective than basic red teaming for well-defended targets) or break the objective into smaller, intermediate goals. [^8]
 
 ---
 
@@ -807,7 +807,7 @@ This tutorial walked through the complete lifecycle of a PyRIT red teaming engag
 
 ### Three things to do this week
 
-**First, run a baseline test against your own deployed application.** Use `PromptSendingAttack` with a set of 20-30 adversarial objectives drawn from the OWASP Top 10 for LLM Applications risk categories. [^19] Record the results. This is your baseline against which you measure future improvements. If you do not yet have a deployed application, run the baseline against a local Ollama model to establish your workflow.
+**First, run a baseline test against your own deployed application.** Use `PromptSendingAttack` with a set of 20-30 adversarial objectives drawn from the OWASP Top 10 for LLM Applications risk categories. [^15] Record the results. This is your baseline against which you measure future improvements. If you do not yet have a deployed application, run the baseline against a local Ollama model to establish your workflow.
 
 **Second, set up a Crescendo test.** Multi-turn attacks reveal vulnerabilities that single-turn tests miss entirely. Run a Crescendo attack with 10 turns against 5 objectives. If any succeed, you have concrete evidence for investing in additional guardrail layers.
 
@@ -815,13 +815,13 @@ This tutorial walked through the complete lifecycle of a PyRIT red teaming engag
 
 ### Where to go from here
 
-**Garak** complements PyRIT by providing a different approach to LLM vulnerability scanning with pre-built probe suites. Article 2.09 on this site covers Garak setup and usage. The two tools are not competitors; PyRIT excels at targeted, strategy-driven red teaming while Garak provides broad, automated vulnerability scanning. [^20]
+**Garak** complements PyRIT by providing a different approach to LLM vulnerability scanning with pre-built probe suites. Article 2.09 on this site covers Garak setup and usage. The two tools are not competitors; PyRIT excels at targeted, strategy-driven red teaming while Garak provides broad, automated vulnerability scanning. [^16]
 
 **Custom targets** extend PyRIT to test your specific applications. If your LLM is wrapped behind a REST API with authentication, custom pre-processing, or output formatting, you can create a custom target class that handles those specifics while keeping the rest of the PyRIT pipeline unchanged. The PyRIT documentation provides a complete guide to creating custom targets. [^5]
 
-**The MITRE ATLAS framework** maps AI attack techniques to a structured taxonomy analogous to ATT&CK for traditional systems. Using ATLAS to categorise your PyRIT findings gives them a common language that security teams, risk managers, and auditors understand. Article [2.06](/attack-and-red-team/the-mitre-atlas-playbook/) on this site covers ATLAS in depth. [^21]
+**The MITRE ATLAS framework** maps AI attack techniques to a structured taxonomy analogous to ATT&CK for traditional systems. Using ATLAS to categorise your PyRIT findings gives them a common language that security teams, risk managers, and auditors understand. Article [2.06](/attack-and-red-team/the-mitre-atlas-playbook/) on this site covers ATLAS in depth. [^17]
 
-**Microsoft's AI red teaming training series** provides the strategic context for the tactical skills this tutorial covers. It covers threat modelling for AI systems, planning red team engagements, and interpreting results for stakeholders. [^12]
+**Microsoft's AI red teaming training series** provides the strategic context for the tactical skills this tutorial covers. It covers threat modelling for AI systems, planning red team engagements, and interpreting results for stakeholders. [^10]
 
 ### A note on responsible use
 
@@ -836,7 +836,7 @@ PyRIT is a defensive tool. Its purpose is to find vulnerabilities in **your own 
 - Public API endpoints (OpenAI, Anthropic, Google, etc.) with automated adversarial prompts — this violates their terms of service and can result in account suspension
 - Any system you do not own or have written authorisation to test
 
-Microsoft's guidance is explicit: AI red teaming should follow the same ethical frameworks as traditional penetration testing, with proper authorisation, scoping, and responsible disclosure. [^12] The attack techniques in this tutorial exist in the wild regardless of whether you test for them. Finding them first, in a controlled environment, is how you protect your users.
+Microsoft's guidance is explicit: AI red teaming should follow the same ethical frameworks as traditional penetration testing, with proper authorisation, scoping, and responsible disclosure. [^10] The attack techniques in this tutorial exist in the wild regardless of whether you test for them. Finding them first, in a controlled environment, is how you protect your users.
 
 ---
 
@@ -854,30 +854,22 @@ Microsoft's guidance is explicit: AI red teaming should follow the same ethical 
 
 [^7]: PyRIT Documentation, "Scoring", https://github.com/microsoft/PyRIT/tree/main/doc/code/scoring
 
-[^8]: PyRIT Documentation, "Attack (Single-Turn and Multi-Turn)", https://github.com/microsoft/PyRIT/tree/main/doc/code/executor/attack
+[^8]: PyRIT Documentation, "Attack Strategies", https://github.com/microsoft/PyRIT/tree/main/doc/code/executor/attack
 
 [^9]: Russinovich, M. et al., "Great, Now Write an Article About That: The Crescendo Multi-Turn LLM Jailbreak Attack" (2024), https://arxiv.org/abs/2404.01833
 
-[^10]: PyRIT Documentation, "Attack (Multi-Turn Attack Strategy)", https://github.com/microsoft/PyRIT/tree/main/doc/code/executor/attack
+[^10]: Microsoft, "AI Red Teaming Training Series: Securing Generative AI Systems", https://learn.microsoft.com/en-us/security/ai-red-team/training
 
-[^11]: PyRIT Documentation, "OpenAI Chat Target", https://github.com/microsoft/PyRIT/tree/main/doc/code/targets
+[^11]: Mehrotra, A. et al., "Tree of Attacks: Jailbreaking Black-Box LLMs with Auto-Generated Subversions" (2023), https://arxiv.org/abs/2312.02119
 
-[^12]: Microsoft, "AI Red Teaming Training Series: Securing Generative AI Systems", https://learn.microsoft.com/en-us/security/ai-red-team/training
+[^12]: Microsoft, "Planning Red Teaming for Large Language Models and Their Applications", https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/red-teaming
 
-[^13]: Russinovich, M. et al., "Great, Now Write an Article About That: The Crescendo Multi-Turn LLM Jailbreak Attack" (2024), Section 5: Experimental Results, https://arxiv.org/abs/2404.01833
+[^13]: OWASP, "Machine Learning Security Top 10", https://owasp.org/www-project-machine-learning-security-top-10/
 
-[^14]: Mehrotra, A. et al., "Tree of Attacks: Jailbreaking Black-Box LLMs with Auto-Generated Subversions" (2023), https://arxiv.org/abs/2312.02119
+[^14]: Azure, "Azure OpenAI Service Quotas and Limits", https://learn.microsoft.com/en-us/azure/ai-services/openai/quotas-limits
 
-[^15]: Mehrotra, A. et al., "Tree of Attacks: Jailbreaking Black-Box LLMs with Auto-Generated Subversions" (2023), https://arxiv.org/abs/2312.02119
+[^15]: OWASP, "Top 10 for LLM Applications 2025", https://genai.owasp.org/llm-top-10/
 
-[^16]: Microsoft, "Planning Red Teaming for Large Language Models and Their Applications", https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/red-teaming
+[^16]: Garak, "Garak: LLM Vulnerability Scanner", https://github.com/NVIDIA/garak
 
-[^17]: OWASP, "Machine Learning Security Top 10", https://owasp.org/www-project-machine-learning-security-top-10/
-
-[^18]: Azure, "Azure OpenAI Service Quotas and Limits", https://learn.microsoft.com/en-us/azure/ai-services/openai/quotas-limits
-
-[^19]: OWASP, "Top 10 for LLM Applications 2025", https://genai.owasp.org/llm-top-10/
-
-[^20]: Garak, "Garak: LLM Vulnerability Scanner", https://github.com/NVIDIA/garak
-
-[^21]: MITRE, "ATLAS: Adversarial Threat Landscape for AI Systems", https://atlas.mitre.org/
+[^17]: MITRE, "ATLAS: Adversarial Threat Landscape for AI Systems", https://atlas.mitre.org/
