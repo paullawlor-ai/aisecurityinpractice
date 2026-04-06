@@ -23,7 +23,7 @@ date: 2026-02-21
 2. [Prerequisites and Setup](#2-prerequisites-and-setup)
 3. [Core Concepts: The PyRIT Architecture](#3-core-concepts-the-pyrit-architecture)
 4. [Step-by-Step Walkthrough: Your First Attacks](#4-step-by-step-walkthrough-your-first-attacks)
-5. [Advanced Usage: Crescendo, PAIR, and Custom Strategies](#5-advanced-usage-crescendo-pair-and-custom-strategies)
+5. [Advanced Usage: Crescendo, TAP, and Custom Strategies](#5-advanced-usage-crescendo-tap-and-custom-strategies)
 6. [CI/CD Integration: Automated Red Teaming in Your Pipeline](#6-cicd-integration-automated-red-teaming-in-your-pipeline)
 7. [Troubleshooting: Common Errors and How to Fix Them](#7-troubleshooting-common-errors-and-how-to-fix-them)
 8. [Summary and Next Steps](#8-summary-and-next-steps)
@@ -93,15 +93,21 @@ print(pyrit.__version__)
 
 PyRIT reads API credentials from environment variables. Create a `.env` file in your project directory (and add it to `.gitignore` immediately). PyRIT's `OpenAIChatTarget` uses the `OPENAI_CHAT_*` prefix:
 
+Choose **one** of the following configurations depending on your provider.
+
+**Azure OpenAI:**
+
 ```bash
 # .env
-
-# For Azure OpenAI (include the full deployment path and api-version)
 OPENAI_CHAT_ENDPOINT=https://your-resource.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-12-01-preview
 OPENAI_CHAT_MODEL=gpt-4o
 OPENAI_CHAT_KEY=your-key-here
+```
 
-# For OpenAI API directly
+**OpenAI API directly:**
+
+```bash
+# .env
 OPENAI_CHAT_ENDPOINT=https://api.openai.com/v1
 OPENAI_CHAT_MODEL=gpt-4o
 OPENAI_CHAT_KEY=your-key-here
@@ -418,7 +424,7 @@ This output tells you both that the safety training was bypassed and how many tu
 
 ---
 
-## 5. Advanced Usage: Crescendo, PAIR, and Custom Strategies
+## 5. Advanced Usage: Crescendo, TAP, and Custom Strategies
 
 ### The Crescendo attack
 
@@ -718,7 +724,7 @@ For local Ollama targets, rate limiting is uncommon, but resource exhaustion is 
 LLM-based scorers are themselves subject to the limitations of language models. If the `SelfAskTrueFalseScorer` is misclassifying responses, check three things:
 
 1. **Scorer model capability.** Use a capable model (GPT-4o or equivalent) as the scorer. Smaller models produce unreliable judgements.
-2. **Scorer prompt configuration.** The YAML file passed to `true_false_question_path` defines what the scorer considers a successful attack. Review this file and adjust the criteria if they do not match your testing objectives.
+2. **Scorer prompt configuration.** The `true_description` string passed to `TrueFalseQuestion` defines what the scorer considers a successful attack. If the description is too vague or too narrow, the scorer will misclassify. Write a specific, unambiguous description of what "success" looks like for each objective. You can also use a built-in rubric from `TrueFalseQuestionPaths` (e.g., `TASK_ACHIEVED`) instead of writing your own.
 3. **Ambiguous responses.** Some target responses are genuinely ambiguous (the model partially complies while hedging with disclaimers). Consider using `SelfAskLikertScorer` for a graduated assessment instead of a binary true/false. [^7]
 
 ### Memory database lock errors
