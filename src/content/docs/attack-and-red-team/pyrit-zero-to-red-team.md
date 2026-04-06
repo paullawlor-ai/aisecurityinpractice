@@ -79,10 +79,31 @@ For Docker users who prefer a pre-configured environment with JupyterLab include
 ```bash
 git clone https://github.com/microsoft/PyRIT
 cd PyRIT/docker
+```
+
+Before starting the container, set up the environment files that PyRIT reads for API credentials:
+
+```bash
+# Create the PyRIT config directory on your host
+mkdir -p ~/.pyrit
+
+# Copy the example environment files
+cp ../.env_example ~/.pyrit/.env
+cp ../.env_local_example ~/.pyrit/.env.local
+
+# Copy container-specific settings
+cp .env_container_settings_example .env.container.settings
+```
+
+Edit `~/.pyrit/.env` and `~/.pyrit/.env.local` to add your API keys (see the next section for which values to set). Then build and start the container:
+
+```bash
 docker compose up -d
 ```
 
-Verify the installation:
+Once running, open `http://localhost:8888` in your browser to access JupyterLab. The PyRIT documentation notebooks are automatically available in the `notebooks/` directory.
+
+Verify the installation from a notebook cell:
 
 ```python
 import pyrit
@@ -91,14 +112,13 @@ print(pyrit.__version__)
 
 ### Configuring environment variables
 
-PyRIT reads API credentials from environment variables. Create a `.env` file in your project directory (and add it to `.gitignore` immediately). PyRIT's `OpenAIChatTarget` uses the `OPENAI_CHAT_*` prefix:
+PyRIT reads API credentials from environment variables. For **local (non-Docker) installs**, create a `.env` file in your project directory (and add it to `.gitignore` immediately). For **Docker installs**, edit `~/.pyrit/.env` as described above. PyRIT's `OpenAIChatTarget` uses the `OPENAI_CHAT_*` prefix.
 
 Choose **one** of the following configurations depending on your provider.
 
 **Azure OpenAI:**
 
 ```bash
-# .env
 OPENAI_CHAT_ENDPOINT=https://your-resource.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-12-01-preview
 OPENAI_CHAT_MODEL=gpt-4o
 OPENAI_CHAT_KEY=your-key-here
@@ -107,7 +127,6 @@ OPENAI_CHAT_KEY=your-key-here
 **OpenAI API directly:**
 
 ```bash
-# .env
 OPENAI_CHAT_ENDPOINT=https://api.openai.com/v1
 OPENAI_CHAT_MODEL=gpt-4o
 OPENAI_CHAT_KEY=your-key-here
