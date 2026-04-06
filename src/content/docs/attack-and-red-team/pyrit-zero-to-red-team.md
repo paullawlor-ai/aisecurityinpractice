@@ -38,7 +38,7 @@ Manual red teaming of AI systems does not scale. A skilled human tester might ev
 
 In this tutorial, we build a complete PyRIT red teaming setup from scratch. By the end, you will have:
 
-- A working PyRIT installation connected to both cloud and local LLM targets
+- A working PyRIT installation connected to a local Ollama target (and optionally your own cloud-hosted application)
 - A single-turn attack pipeline that sends adversarial prompts and scores responses automatically
 - A multi-turn attack using the Crescendo technique, which gradually escalates benign conversations into safety violations
 - A CI/CD integration pattern that runs PyRIT as part of your deployment pipeline
@@ -47,18 +47,28 @@ The approach is hands-on. Every section includes code you can run. Where configu
 
 PyRIT is not a push-button vulnerability scanner. It is an automation framework that implements attack strategies you direct. Understanding the core concepts (targets, converters, scorers, and orchestrators) is essential before running attacks, so we cover those before touching any offensive code. The goal is not to find a single vulnerability, but to build a repeatable red teaming capability that grows with your AI deployments.
 
+:::caution[Red team your own systems, not someone else's]
+PyRIT is designed for testing **your own applications and safety layers** — the system prompts, guardrails, RAG pipelines, and tool-calling logic you have built around an LLM. It is **not** for attempting to jailbreak third-party APIs like OpenAI's GPT-4o or Anthropic's Claude directly.
+
+Firing automated adversarial prompts at a public API violates most providers' usage policies and can result in account suspension or a permanent ban. This applies to OpenAI, Azure OpenAI, Google, Anthropic, and others.
+
+**For learning and development**, use a local model via Ollama (free, unlimited, zero risk). **For production red teaming**, point PyRIT at your own deployed application — the wrapper you built around the LLM, not the raw model endpoint. If you need to red team at the model level, Azure OpenAI customers can [request content filter removal](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/content-filters) specifically for authorised testing.
+
+Throughout this tutorial, all code examples assume you are targeting either a local Ollama instance or your own application endpoint.
+:::
+
 ---
 
 ## 2. Prerequisites and Setup
 
 ### What you need before starting
 
-PyRIT requires Python 3.10 or later (up to 3.13). [^2] You need at least one LLM endpoint to attack, and one LLM endpoint to use as a scorer (these can be the same model, though using different models is better practice). The tutorial uses two targets:
+PyRIT requires Python 3.10 or later (up to 3.13). [^2] You need at least one LLM endpoint to act as the target, and one to act as the scorer (these can be the same model, though using different models is better practice). The tutorial uses:
 
-- **Azure OpenAI** (or OpenAI API) for cloud-hosted models
-- **Ollama** for local, cost-free testing against open-source models
+- **Ollama** for local, cost-free testing — the recommended starting point for following along with this tutorial
+- **Azure OpenAI** (or OpenAI API) for testing your own deployed applications that wrap cloud-hosted models
 
-If you only have access to one of these, the tutorial still works. PyRIT's target abstraction means you can swap endpoints without changing your attack logic.
+If you only have Ollama, every example in this tutorial works without modification. PyRIT's target abstraction means you can swap endpoints without changing your attack logic.
 
 ### Installing PyRIT
 
@@ -110,31 +120,9 @@ import pyrit
 print(pyrit.__version__)
 ```
 
-### Configuring environment variables
+### Setting up Ollama as a local target (recommended)
 
-PyRIT reads API credentials from environment variables. For **local (non-Docker) installs**, create a `.env` file in your project directory (and add it to `.gitignore` immediately). For **Docker installs**, edit `~/.pyrit/.env` as described above. PyRIT's `OpenAIChatTarget` uses the `OPENAI_CHAT_*` prefix.
-
-Choose **one** of the following configurations depending on your provider.
-
-**Azure OpenAI:**
-
-```bash
-OPENAI_CHAT_ENDPOINT=https://your-resource.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-12-01-preview
-OPENAI_CHAT_MODEL=gpt-4o
-OPENAI_CHAT_KEY=your-key-here
-```
-
-**OpenAI API directly:**
-
-```bash
-OPENAI_CHAT_ENDPOINT=https://api.openai.com/v1
-OPENAI_CHAT_MODEL=gpt-4o
-OPENAI_CHAT_KEY=your-key-here
-```
-
-### Setting up Ollama as a local target
-
-If you want a free, local target for testing (recommended for learning), install **Ollama** and pull a model:
+The safest and cheapest way to follow this tutorial is with a local model. Install **Ollama** and pull a model:
 
 ```bash
 # Install Ollama from https://ollama.com
@@ -142,7 +130,13 @@ ollama pull llama3.2
 ollama serve
 ```
 
-Ollama runs on `http://localhost:11434` by default and exposes an OpenAI-compatible API. PyRIT does not have a separate Ollama target class; you use `OpenAIChatTarget` pointed at Ollama's endpoint. Set these environment variables (or pass them as constructor arguments):
+Ollama runs on `http://localhost:11434` by default and exposes an OpenAI-compatible API. PyRIT does not have a separate Ollama target class; you use `OpenAIChatTarget` pointed at Ollama's endpoint. [^3]
+
+### Configuring environment variables
+
+PyRIT reads API credentials from environment variables. For **local (non-Docker) installs**, create a `.env` file in your project directory (and add it to `.gitignore` immediately). For **Docker installs**, edit `~/.pyrit/.env` as described above. PyRIT's `OpenAIChatTarget` uses the `OPENAI_CHAT_*` prefix.
+
+**Ollama (recommended for this tutorial):**
 
 ```bash
 OPENAI_CHAT_ENDPOINT=http://localhost:11434/v1/chat/completions
@@ -150,7 +144,27 @@ OPENAI_CHAT_MODEL=llama3.2
 OPENAI_CHAT_KEY=anything
 ```
 
-Ollama does not require an API key, but PyRIT expects a non-empty value, so any string works. This gives you an unlimited, cost-free target for developing and testing attack strategies before running them against production endpoints. [^3]
+Ollama does not require an API key, but PyRIT expects a non-empty value, so any string works. This gives you an unlimited, cost-free target with zero risk of violating any provider's usage policies.
+
+**Azure OpenAI (for testing your own deployed applications):**
+
+```bash
+OPENAI_CHAT_ENDPOINT=https://your-resource.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-12-01-preview
+OPENAI_CHAT_MODEL=gpt-4o
+OPENAI_CHAT_KEY=your-key-here
+```
+
+**OpenAI API (for testing your own deployed applications):**
+
+```bash
+OPENAI_CHAT_ENDPOINT=https://api.openai.com/v1
+OPENAI_CHAT_MODEL=gpt-4o
+OPENAI_CHAT_KEY=your-key-here
+```
+
+:::note
+When using cloud APIs, make sure you are targeting **your own application's endpoint** — not the raw model API. Red teaming a public LLM directly with adversarial prompts may violate the provider's terms of service.
+:::
 
 ### Initialising PyRIT
 
@@ -269,7 +283,7 @@ A typical PyRIT attack flows as follows:
 
 ### Attack 1: Single-turn prompt sending
 
-The simplest PyRIT attack sends a list of adversarial prompts to a target and scores the responses. This is the starting point for any red teaming engagement.
+The simplest PyRIT attack sends a list of adversarial prompts to a target and scores the responses. This is the starting point for any red teaming engagement. The examples below use `OpenAIChatTarget()`, which reads from your environment variables — if you followed the Ollama setup above, these will target your local model automatically.
 
 ```python
 import asyncio
@@ -368,7 +382,7 @@ attack_chained = PromptSendingAttack(
 
 ### Attack 3: Multi-turn red teaming
 
-Single-turn attacks test individual prompts. Multi-turn attacks test whether a model can be gradually led to violate its safety training over a conversation. This is closer to how real attackers operate.
+Single-turn attacks test individual prompts. Multi-turn attacks test whether your application can be gradually led to violate its safety training over a conversation. This is closer to how real attackers operate. Multi-turn attacks require a second LLM (the "adversarial" model) to generate follow-up prompts — this can also be your local Ollama instance.
 
 The `RedTeamingAttack` uses an adversarial LLM (the "attacker") to generate contextually aware prompts based on the target's previous responses:
 
@@ -578,6 +592,10 @@ Parallelisation is particularly valuable during CI/CD integration, where you wan
 AI systems change with every model update, prompt revision, and guardrail configuration change. Manual red teaming after each change is impractical. Integrating PyRIT into your CI/CD pipeline ensures that every deployment is tested against a baseline of adversarial scenarios before reaching production. [^16]
 
 The pattern is analogous to running SAST or DAST tools in a build pipeline: you define a set of security test cases, run them automatically, and fail the build if the results exceed an acceptable threshold.
+
+:::note
+Your CI/CD red team tests should target **your own application's endpoint** — the system prompts, guardrails, and safety layers you have built. The `OPENAI_CHAT_ENDPOINT` secret in your pipeline should point to your deployed application, not directly to `api.openai.com` or Azure's raw model endpoint.
+:::
 
 ### Structuring tests as pytest cases
 
@@ -789,7 +807,7 @@ This tutorial walked through the complete lifecycle of a PyRIT red teaming engag
 
 ### Three things to do this week
 
-**First, run a baseline test against your production model.** Use `PromptSendingAttack` with a set of 20-30 adversarial objectives drawn from the OWASP Top 10 for LLM Applications risk categories. [^19] Record the results. This is your baseline against which you measure future improvements.
+**First, run a baseline test against your own deployed application.** Use `PromptSendingAttack` with a set of 20-30 adversarial objectives drawn from the OWASP Top 10 for LLM Applications risk categories. [^19] Record the results. This is your baseline against which you measure future improvements. If you do not yet have a deployed application, run the baseline against a local Ollama model to establish your workflow.
 
 **Second, set up a Crescendo test.** Multi-turn attacks reveal vulnerabilities that single-turn tests miss entirely. Run a Crescendo attack with 10 turns against 5 objectives. If any succeed, you have concrete evidence for investing in additional guardrail layers.
 
@@ -807,7 +825,18 @@ This tutorial walked through the complete lifecycle of a PyRIT red teaming engag
 
 ### A note on responsible use
 
-PyRIT is a defensive tool. Its purpose is to find vulnerabilities in your own systems before attackers do. Microsoft's guidance is explicit: AI red teaming should follow the same ethical frameworks as traditional penetration testing, with proper authorisation, scoping, and responsible disclosure. [^12] The attack techniques in this tutorial exist in the wild regardless of whether you test for them. Finding them first, in a controlled environment, is how you protect your users.
+PyRIT is a defensive tool. Its purpose is to find vulnerabilities in **your own systems** before attackers do — the system prompts you wrote, the guardrails you configured, the RAG pipelines you built. It is not a tool for attacking third-party services.
+
+**What you should target:**
+- Your own deployed LLM application (the wrapper, not the raw model)
+- A local model via Ollama (for learning and development)
+- An Azure OpenAI deployment where you have explicit authorisation and have requested content filter removal for testing
+
+**What you should not target:**
+- Public API endpoints (OpenAI, Anthropic, Google, etc.) with automated adversarial prompts — this violates their terms of service and can result in account suspension
+- Any system you do not own or have written authorisation to test
+
+Microsoft's guidance is explicit: AI red teaming should follow the same ethical frameworks as traditional penetration testing, with proper authorisation, scoping, and responsible disclosure. [^12] The attack techniques in this tutorial exist in the wild regardless of whether you test for them. Finding them first, in a controlled environment, is how you protect your users.
 
 ---
 
