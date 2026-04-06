@@ -3,14 +3,14 @@ title: "OWASP Top 10 for Agentic Applications (2026): Explained for Practitioner
 description: "A practitioner walkthrough of the OWASP Agentic Top 10: autonomy, tools, memory, and inter-agent trust mapped to defensive actions and site resources."
 sidebar:
   order: 13
-date: 2026-03-19
+date: 2026-04-04
 ---
 
 **Series:** AI Security in Practice<br/>
 **Pillar:** 1: Foundations<br/>
 **Difficulty:** Beginner-Intermediate<br/>
 **Author:** Paul Lawlor<br/>
-**Date:** 19 March 2026<br/>
+**Date:** 4 April 2026<br/>
 **Reading time:** 16 minutes
 
 > The OWASP Agentic Top 10 translates multi-step autonomy, tools, memory, and inter-agent trust into ten prioritised risks. This article is a practitioner walkthrough: plain language, minimum defensive actions, and links into deeper material on this site, not a substitute for OWASP's official PDF.
