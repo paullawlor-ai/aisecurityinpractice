@@ -11,6 +11,7 @@ date: 2026-02-21
 **Difficulty:** Intermediate<br/>
 **Author:** Paul Lawlor<br/>
 **Date:** 21 February 2026<br/>
+**Updated:** 5 April 2026<br/>
 **Reading time:** 19 minutes
 
 > A hands-on tutorial for building a complete AI red teaming capability with Microsoft's PyRIT framework, from first install to CI/CD integration.
