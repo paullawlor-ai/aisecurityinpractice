@@ -11,6 +11,7 @@ date: 2026-02-20
 **Difficulty:** Beginner<br/>
 **Author:** Paul Lawlor<br/>
 **Date:** 20 February 2026<br/>
+**Updated:** 7 April 2026<br/>
 **Reading time:** 15 minutes
 
 > You do not need a cloud budget or enterprise access to start practising AI security. This guide walks you through building a local lab with open-source tools and running your first attacks.
@@ -78,7 +79,7 @@ $ brew install ollama
 $ irm https://ollama.com/install.ps1 | iex
 ```
 
-On Linux and macOS, Ollama runs as a background service after installation. On Windows, it installs as a system service via the installer or can be started manually.
+On Linux, the standard install sets up the local service. On macOS and Windows, Ollama runs as a local desktop application and exposes the same local API once started.
 
 ### Pulling your first model
 
@@ -98,9 +99,10 @@ success
 ### Essential CLI commands
 
 ```bash
-$ ollama list              # Show downloaded models
+$ ollama ls                # Show downloaded models
 $ ollama run llama3.2      # Start interactive chat
-$ ollama serve             # Start the API server (if not running as service)
+$ ollama ps                # Show loaded models and whether they are on CPU/GPU
+$ ollama serve             # Start the API server (if not already running)
 $ ollama rm llama3.2       # Remove a model to free disk space
 ```
 
@@ -136,7 +138,7 @@ Ollama also exposes an **OpenAI-compatible API** at `/v1/chat/completions`, whic
 
 ### Security considerations
 
-Ollama binds to `localhost:11434` with no authentication. [^3] Any process on your machine can query the model. If you change the bind address to `0.0.0.0`, anyone on your network can too. For a single-user lab, the default is acceptable -- but do not expose Ollama to untrusted networks without an authentication proxy.
+Ollama binds to `127.0.0.1:11434` by default and does not add authentication on top of that local bind. [^3] Any process on your machine can query the model. If you change the bind address with `OLLAMA_HOST=0.0.0.0:11434`, anything that can reach your host can query it too. For a single-user lab, the default is acceptable -- but do not expose Ollama to untrusted networks without a reverse proxy, network controls, and authentication.
 
 ### Recommended models
 
@@ -155,52 +157,63 @@ Two open-source tools form the core of your lab's offensive capability: **PyRIT*
 
 ### Installing PyRIT
 
-PyRIT is the Python Risk Identification Tool for generative AI, developed by Microsoft's AI Red Team. Install it in a virtual environment: [^5]
+PyRIT is the Python Risk Identification Tool for generative AI, developed by Microsoft's AI Red Team. The current PyPI package name is `pyrit`, and the current local install guidance targets Python 3.10-3.13. Install it in a virtual environment: [^5]
 
 ```bash
 $ python -m venv pyrit-env
 $ source pyrit-env/bin/activate   # Linux/macOS
-$ pip install pyrit-ai
+$ pip install pyrit
 ```
 
-PyRIT requires Python 3.10 or later. Its architecture revolves around five abstractions: **Targets** (endpoints you attack), **Executors** (attack patterns like single-turn or multi-turn), **Converters** (payload transformations like Base64 encoding), **Scorers** (success evaluation), and **Memory** (conversation storage). [^5]
+On Windows PowerShell, activate with `pyrit-env\Scripts\Activate.ps1`.
 
-Since Ollama exposes an OpenAI-compatible API at `/v1/chat/completions`, configure PyRIT to use `OpenAIChatTarget`:
+PyRIT is now documented as a **Python-first** framework. Its core building blocks are **Targets** (endpoints you attack), **Converters** (payload transformations), **Scorers** (success evaluation), **Attack Strategies** (single-turn or multi-turn orchestration), and **Memory** (conversation storage). [^5]
+
+For a quick local lab, point PyRIT's `OpenAIChatTarget` at Ollama's OpenAI-compatible endpoint. For repeatable use, put these values in `~/.pyrit/.env`; for a first test, environment variables are enough:
+
+```bash
+$ export OPENAI_CHAT_ENDPOINT="http://127.0.0.1:11434/v1"
+$ export OPENAI_CHAT_MODEL="llama3.2"
+$ export OPENAI_CHAT_KEY="not-needed"
+```
+
+Then initialise PyRIT and create the target (for example, in a notebook or async REPL):
 
 ```python
-import os
-os.environ["OPENAI_CHAT_TARGET_API_KEY"] = "not-needed"
-os.environ["OPENAI_CHAT_TARGET_ENDPOINT"] = "http://localhost:11434/v1"
-os.environ["OPENAI_CHAT_TARGET_DEPLOYMENT"] = "llama3.2"
-
+from pyrit.setup import initialize_pyrit_async
+from pyrit.setup.initializers import SimpleInitializer
 from pyrit.prompt_target import OpenAIChatTarget
+
+await initialize_pyrit_async(
+    memory_db_type="InMemory",
+    initializers=[SimpleInitializer()],
+)
 
 target = OpenAIChatTarget()
 ```
 
-Ollama does not require an API key, but PyRIT expects one to be set -- any non-empty string works.
+Ollama does not require an API key, but PyRIT expects a non-empty value in `OPENAI_CHAT_KEY`, so any placeholder string works.
 
 ### Installing Garak
 
-Garak is an LLM vulnerability scanner with a probe-detector-generator architecture. [^6] Install it and run a prompt injection scan:
+Garak is an LLM vulnerability scanner with a probe-detector-generator architecture. [^6] Install it and run a prompt injection scan against your local Ollama model:
 
 ```bash
-$ pip install garak
-$ garak --model_type ollama --model_name llama3.2 \
+$ python -m pip install -U garak
+$ garak --target_type ollama --target_name llama3.2 \
   --probes promptinject
 ```
 
-Expected output:
+Typical output:
 
 ```
-garak LLM vulnerability scanner v0.9 : LLM security probe
-📜 reporting to garak_runs/garak.62a1b2c3.report.jsonl
+📜 reporting to garak_runs/garak.<run-id>.report.jsonl
 promptinject.HijackHateHumansMini : 12/12  ok on   3/  12
 promptinject.HijackKillHumansMini : 12/12  ok on   5/  12
-📜 report html summary: garak_runs/garak.62a1b2c3.report.html
+📜 report html summary: garak_runs/garak.<run-id>.report.html
 ```
 
-Each line shows a probe name and the pass/fail rate. Lower "ok" numbers mean the model is more vulnerable. Run `garak --list_probes` to see all available probe categories.
+Each line shows a probe name and the pass/fail rate. Lower "ok" numbers mean the model is more vulnerable. The exact probe names and counts will vary by Garak version and model. Run `garak --list_probes` to see all available probe categories.
 
 Use Garak first to identify broad vulnerability categories, then use PyRIT to develop specific attack chains against the weaknesses Garak discovers. This mirrors professional AI red team practice: automated scanning to find the attack surface, followed by manual exploitation. [^7]
 
@@ -411,7 +424,7 @@ The `HTTPTarget` sends each prompt to the Flask application, not the raw model -
 Run Garak against the base model to see which prompt injection techniques succeed. The output format is shown in Section 4 above. [^6]
 
 ```bash
-$ garak --model_type ollama --model_name llama3.2 \
+$ garak --target_type ollama --target_name llama3.2 \
   --probes promptinject
 ```
 
@@ -514,7 +527,7 @@ You now have a working AI security lab. Here is a structured path to professiona
 
 - **AI Village** -- `aivillage.org` -- Community hub for AI security researchers, CTF events, and workshops. [^2]
 - **OWASP GenAI Security Project** -- `genai.owasp.org` -- Maintains the LLM Top 10 and related resources. [^8]
-- **PyRIT GitHub** -- `github.com/Azure/PyRIT` -- Issue tracker, discussions, and contribution guide. [^5]
+- **PyRIT GitHub** -- `github.com/microsoft/PyRIT` -- Issue tracker, discussions, and contribution guide. [^5]
 - **Garak GitHub** -- `github.com/NVIDIA/garak` -- Probe development, bug reports, and community support. [^6]
 - **MITRE ATLAS** -- `atlas.mitre.org` -- Adversarial threat landscape and case studies for AI systems. [^1]
 
@@ -548,7 +561,7 @@ graph LR
 
 [^4]: vLLM -- High-Throughput LLM Serving Engine. Hardware requirements reference. Available at: https://docs.vllm.ai/
 
-[^5]: Microsoft PyRIT Documentation -- Python Risk Identification Toolkit. Available at: https://azure.github.io/PyRIT/
+[^5]: Microsoft PyRIT Documentation -- Python Risk Identification Tool. Available at: https://microsoft.github.io/PyRIT/
 
 [^6]: Garak -- LLM Vulnerability Scanner. Available at: https://docs.garak.ai/
 
