@@ -65,6 +65,27 @@ const newHrefs = docs
 </script>
 
 <script>
+	function scrollSidebarToActive() {
+		const pane = document.getElementById('starlight__sidebar');
+		if (!pane) return;
+
+		let target = pane.querySelector('a[aria-current="page"]');
+
+		if (!target) {
+			const seg = location.pathname.split('/').filter(Boolean)[0];
+			if (seg) target = pane.querySelector(`a[href^="/${seg}/"]`);
+		}
+
+		if (target) target.scrollIntoView({ block: 'center', behavior: 'instant' });
+	}
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', scrollSidebarToActive);
+	} else {
+		scrollSidebarToActive();
+	}
+</script>
+
+<script>
 	const btn = document.querySelector('.sidebar-toggle');
 	if (btn) {
 		const icon = btn.querySelector('.toggle-icon');

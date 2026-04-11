@@ -1,0 +1,226 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+	directory: string;
+}
+
+const { directory } = Astro.props;
+
+const docs = await getCollection('docs');
+
+const articles = docs
+	.filter(doc => {
+		const prefix = directory + '/';
+		return doc.id.startsWith(prefix) && doc.id !== prefix.slice(0, -1) && !doc.id.endsWith('/index');
+	})
+	.sort((a, b) => {
+		const da = a.data.date instanceof Date ? a.data.date.getTime() : 0;
+		const db = b.data.date instanceof Date ? b.data.date.getTime() : 0;
+		if (da !== 0 && db !== 0) return db - da;
+		if (da !== 0) return -1;
+		if (db !== 0) return 1;
+		return a.data.title.localeCompare(b.data.title);
+	});
+
+function formatDate(date: Date): string {
+	return date.toLocaleDateString('en-GB', {
+		day: 'numeric',
+		month: 'short',
+		year: 'numeric',
+	});
+}
+
+const contentTypeLabels: Record<string, string> = {
+	essay: 'Essay',
+	guide: 'Guide',
+	lab: 'Lab',
+	reference: 'Reference',
+};
+
+const allPillars = [
+	{ slug: 'foundations', title: 'Foundations', description: 'LLM internals, OWASP Top 10, tool selection, and your first security lab.' },
+	{ slug: 'attack-and-red-team', title: 'Attack and Red Team', description: 'Prompt injection, jailbreaking, red teaming tools, adversarial ML, and CTFs.' },
+	{ slug: 'defend-and-harden', title: 'Defend and Harden', description: 'Guardrails, secure RAG, output validation, MCP security, and agent hardening.' },
+	{ slug: 'architecture-and-platform', title: 'Architecture and Platform', description: 'Cloud AI security, MLOps, API gateway patterns, and Zero Trust for AI.' },
+	{ slug: 'governance-risk-compliance', title: 'Governance, Risk and Compliance', description: 'Frameworks, compliance, risk registers, incident response, and UK Government guidance.' },
+	{ slug: 'emerging-threats-and-research', title: 'Emerging Threats and Research', description: 'AI worms, sleeper agents, supply chain attacks, and multi-agent system security.' },
+];
+
+const otherPillars = allPillars.filter(p => p.slug !== directory);
+---
+
+<div class="pillar-index">
+	<p class="pillar-count">{articles.length} article{articles.length !== 1 ? 's' : ''}</p>
+	<ul class="pillar-list">
+		{articles.map(article => (
+			<li class="pillar-item">
+				<a href={`/${article.id}/`} class="pillar-link">
+					<span class="pillar-meta">
+						{article.data.date instanceof Date && (
+							<span class="pillar-date">{formatDate(article.data.date)}</span>
+						)}
+						{article.data.contentType && (
+							<span class="pillar-type">{contentTypeLabels[article.data.contentType] ?? article.data.contentType}</span>
+						)}
+					</span>
+					<span class="pillar-title">{article.data.title}</span>
+					{article.data.description && (
+						<span class="pillar-desc">{article.data.description}</span>
+					)}
+				</a>
+			</li>
+		))}
+	</ul>
+
+	<section class="other-pillars">
+		<h2 class="other-pillars-heading">Other Pillars</h2>
+		<ul class="other-pillars-grid">
+			{otherPillars.map(pillar => (
+				<li>
+					<a href={`/${pillar.slug}/`} class="other-pillar-card">
+						<span class="other-pillar-title">{pillar.title}</span>
+						<span class="other-pillar-desc">{pillar.description}</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	</section>
+</div>
+
+<style>
+	.pillar-index {
+		margin-block: 0.5rem 1.5rem;
+	}
+
+	.pillar-count {
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+		margin-bottom: 1rem;
+	}
+
+	.pillar-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.pillar-item {
+		margin: 0;
+	}
+
+	.pillar-link {
+		display: flex;
+		flex-direction: column;
+		gap: 0.375rem;
+		padding: 0.875rem 1rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.5rem;
+		text-decoration: none;
+		transition: background-color 0.15s ease, border-color 0.15s ease;
+	}
+
+	.pillar-link:hover {
+		background: var(--sl-color-gray-7, var(--sl-color-gray-6));
+		border-color: var(--sl-color-gray-2);
+	}
+
+	.pillar-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		font-size: var(--sl-text-xs);
+		font-family: var(--sl-font-system-mono);
+	}
+
+	.pillar-date {
+		color: var(--sl-color-gray-3);
+	}
+
+	.pillar-type {
+		display: inline-block;
+		border: 1px solid var(--sl-color-accent-high);
+		border-radius: 0.25rem;
+		font-size: var(--sl-text-xs);
+		line-height: 1;
+		padding: 0.125rem 0.375rem;
+		color: var(--sl-color-accent-high);
+	}
+
+	.pillar-title {
+		color: var(--sl-color-white);
+		font-weight: 600;
+		font-size: var(--sl-text-base);
+		line-height: var(--sl-line-height-headings);
+	}
+
+	.pillar-desc {
+		color: var(--sl-color-gray-3);
+		font-size: var(--sl-text-sm);
+		line-height: 1.5;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.other-pillars {
+		margin-top: 3rem;
+		padding-top: 2rem;
+		border-top: 1px solid var(--sl-color-gray-5);
+	}
+
+	.other-pillars-heading {
+		font-size: var(--sl-text-lg);
+		font-weight: 600;
+		color: var(--sl-color-white);
+		margin-bottom: 1rem;
+	}
+
+	.other-pillars-grid {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+	}
+
+	@media (min-width: 40rem) {
+		.other-pillars-grid {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	.other-pillar-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.375rem;
+		padding: 0.875rem 1rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.5rem;
+		text-decoration: none;
+		transition: background-color 0.15s ease, border-color 0.15s ease;
+		height: 100%;
+	}
+
+	.other-pillar-card:hover {
+		background: var(--sl-color-gray-7, var(--sl-color-gray-6));
+		border-color: var(--sl-color-gray-2);
+	}
+
+	.other-pillar-title {
+		color: var(--sl-color-white);
+		font-weight: 600;
+		font-size: var(--sl-text-base);
+	}
+
+	.other-pillar-desc {
+		color: var(--sl-color-gray-3);
+		font-size: var(--sl-text-sm);
+		line-height: 1.5;
+	}
+</style>
