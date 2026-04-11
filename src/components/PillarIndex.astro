@@ -10,9 +10,7 @@ const { directory } = Astro.props;
 const docs = await getCollection('docs');
 
 const articles = docs
-	.filter(doc => {
-		const prefix = directory + '/';
-		return doc.id.startsWith(prefix) && doc.id !== prefix.slice(0, -1) && !doc.id.endsWith('/index');
+		return doc.id.startsWith(prefix) && !doc.id.endsWith('/index');
 	})
 	.sort((a, b) => {
 		const da = a.data.date instanceof Date ? a.data.date.getTime() : 0;
