@@ -83,6 +83,7 @@ const newHrefs = docs
 	} else {
 		scrollSidebarToActive();
 	}
+	document.addEventListener('astro:page-load', scrollSidebarToActive);
 </script>
 
 <script>
