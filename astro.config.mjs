@@ -39,27 +39,27 @@ export default defineConfig({
 				{ label: 'Manifesto', link: '/manifesto/' },
 				{
 					label: 'Foundations',
-					autogenerate: { directory: 'foundations' },
+					items: [{ autogenerate: { directory: 'foundations' } }],
 				},
 				{
 					label: 'Attack and Red Team',
-					autogenerate: { directory: 'attack-and-red-team' },
+					items: [{ autogenerate: { directory: 'attack-and-red-team' } }],
 				},
 				{
 					label: 'Defend and Harden',
-					autogenerate: { directory: 'defend-and-harden' },
+					items: [{ autogenerate: { directory: 'defend-and-harden' } }],
 				},
 				{
 					label: 'Architecture and Platform',
-					autogenerate: { directory: 'architecture-and-platform' },
+					items: [{ autogenerate: { directory: 'architecture-and-platform' } }],
 				},
 				{
 					label: 'Governance, Risk and Compliance',
-					autogenerate: { directory: 'governance-risk-compliance' },
+					items: [{ autogenerate: { directory: 'governance-risk-compliance' } }],
 				},
 				{
 					label: 'Emerging Threats and Research',
-					autogenerate: { directory: 'emerging-threats-and-research' },
+					items: [{ autogenerate: { directory: 'emerging-threats-and-research' } }],
 				},
 			],
 			lastUpdated: true,
